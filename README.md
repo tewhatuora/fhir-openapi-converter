@@ -91,6 +91,15 @@ Please review the [HNZ Digital Tooling IG](https://fhir-ig-uat.digital.health.nz
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 <!-- LICENSE -->
 
+## Releases
+Prerelease command:
+
+```
+npm version prerelease
+git push
+git push --tags
+```
+
 ## License
 
 This work is licensed under [CC BY-NC-ND 4.0](cc-by-nc-nd). Refer to the [LICENSE](./LICENSE) file for information.
