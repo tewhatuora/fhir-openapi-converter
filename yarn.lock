@@ -2509,9 +2509,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fhir-oasgen@workspace:.":
+"fhir-openapi-converter@workspace:.":
   version: 0.0.0-use.local
-  resolution: "fhir-oasgen@workspace:."
+  resolution: "fhir-openapi-converter@workspace:."
   dependencies:
     "@nodelib/fs.walk": "npm:^2.0.0"
     "@readme/openapi-parser": "npm:^2.5.1"
