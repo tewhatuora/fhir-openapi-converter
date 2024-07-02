@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "license": "CC BY-NC-ND 4.0",
   "description": "Generates OpenAPI spec from FHIR R4 definitions",
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "build": "webpack --mode production",
     "dev": "./src/cli.js --inputFolder ./example-artifacts",
