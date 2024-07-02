@@ -1,0 +1,23 @@
+{
+  "resourceType": "Patient",
+  "id": "example-patient-instance",
+  "meta": {
+    "profile": [
+      "https://example.com/StructureDefinition/example-patient"
+    ]
+  },
+  "gender": "male",
+  "active": true,
+  "address": [
+    {
+      "line": [
+        "123 Example St"
+      ]
+    },
+    {
+      "line": [
+        "456 Example St"
+      ]
+    }
+  ]
+}

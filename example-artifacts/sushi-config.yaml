@@ -1,0 +1,15 @@
+id: example
+canonical: https://example.com
+name: Example Patient API
+title: Example Patient API
+status: active
+version: 0.0.0
+fhirVersion: 4.0.1
+copyrightYear: 2024+
+releaseLabel: draft
+publisher:
+  name: Example Organisation
+  url: https://example.org
+license: MIT
+dependencies:
+  tewhatuora.digitaltooling.iguat: 0.0.5

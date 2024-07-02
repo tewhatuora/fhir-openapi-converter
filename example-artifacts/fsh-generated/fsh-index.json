@@ -1,0 +1,58 @@
+[
+  {
+    "outputFile": "CapabilityStatement-ExampleCapabilityStatement.json",
+    "fshName": "ExampleCapabilityStatement",
+    "fshType": "Instance",
+    "fshFile": "ExampleCapabilityStatement.fsh",
+    "startLine": 1,
+    "endLine": 78
+  },
+  {
+    "outputFile": "OperationDefinition-ExampleOperationModeOperationDefinition.json",
+    "fshName": "ExampleOperationModeOperationDefinition",
+    "fshType": "Instance",
+    "fshFile": "ExampleOperationDefinitions.fsh",
+    "startLine": 45,
+    "endLine": 84
+  },
+  {
+    "outputFile": "OperationDefinition-ExampleQueryOperationDefinition.json",
+    "fshName": "ExampleQueryOperationDefinition",
+    "fshType": "Instance",
+    "fshFile": "ExampleOperationDefinitions.fsh",
+    "startLine": 1,
+    "endLine": 42
+  },
+  {
+    "outputFile": "OperationDefinition-ExampleSystemOperationDefinition.json",
+    "fshName": "ExampleSystemOperationDefinition",
+    "fshType": "Instance",
+    "fshFile": "ExampleOperationDefinitions.fsh",
+    "startLine": 86,
+    "endLine": 127
+  },
+  {
+    "outputFile": "Patient-example-patient-instance.json",
+    "fshName": "ExamplePatientInstance",
+    "fshType": "Instance",
+    "fshFile": "ExamplePatient.fsh",
+    "startLine": 20,
+    "endLine": 27
+  },
+  {
+    "outputFile": "StructureDefinition-example-patient-2.json",
+    "fshName": "ExamplePatientProfile2",
+    "fshType": "Profile",
+    "fshFile": "ExamplePatient.fsh",
+    "startLine": 13,
+    "endLine": 18
+  },
+  {
+    "outputFile": "StructureDefinition-example-patient.json",
+    "fshName": "ExamplePatientProfile",
+    "fshType": "Profile",
+    "fshFile": "ExamplePatient.fsh",
+    "startLine": 1,
+    "endLine": 11
+  }
+]

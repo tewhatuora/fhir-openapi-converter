@@ -1,0 +1,104 @@
+{
+  "resourceType": "ImplementationGuide",
+  "id": "example",
+  "url": "https://example.com/ImplementationGuide/example",
+  "version": "0.0.0",
+  "name": "ExamplePatientAPI",
+  "title": "Example Patient API",
+  "status": "active",
+  "publisher": "Example Organisation",
+  "contact": [
+    {
+      "name": "Example Organisation",
+      "telecom": [
+        {
+          "system": "url",
+          "value": "https://example.org"
+        }
+      ]
+    }
+  ],
+  "packageId": "example",
+  "license": "MIT",
+  "fhirVersion": [
+    "4.0.1"
+  ],
+  "dependsOn": [
+    {
+      "packageId": "tewhatuora.digitaltooling.iguat",
+      "version": "0.0.5",
+      "uri": "https://fhir-ig-uat.digital.health.nz/hnz-digital-tooling/ImplementationGuide/tewhatuora.digitaltooling.iguat",
+      "id": "tewhatuora_digitaltooling_iguat"
+    }
+  ],
+  "definition": {
+    "resource": [
+      {
+        "reference": {
+          "reference": "StructureDefinition/example-patient"
+        },
+        "name": "Example Patient Profile",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "StructureDefinition/example-patient-2"
+        },
+        "name": "Example Patient Profile 2",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "CapabilityStatement/ExampleCapabilityStatement"
+        },
+        "name": "ExampleCapabilityStatement",
+        "description": "FHIR API for Patients",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "Patient/example-patient-instance"
+        },
+        "name": "ExamplePatientInstance",
+        "exampleCanonical": "https://example.com/StructureDefinition/example-patient"
+      },
+      {
+        "reference": {
+          "reference": "OperationDefinition/ExampleOperationModeOperationDefinition"
+        },
+        "name": "Patient Match",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "OperationDefinition/ExampleQueryOperationDefinition"
+        },
+        "name": "Patient Summary",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "OperationDefinition/ExampleSystemOperationDefinition"
+        },
+        "name": "Patient Summary - system",
+        "exampleBoolean": false
+      }
+    ],
+    "page": {
+      "nameUrl": "toc.html",
+      "title": "Table of Contents",
+      "generation": "html",
+      "page": []
+    },
+    "parameter": [
+      {
+        "code": "copyrightyear",
+        "value": "2024+"
+      },
+      {
+        "code": "releaselabel",
+        "value": "draft"
+      }
+    ]
+  }
+}

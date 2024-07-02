@@ -1,0 +1,54 @@
+{
+  "resourceType": "OperationDefinition",
+  "id": "ExampleSystemOperationDefinition",
+  "url": "https://example.com/OperationDefinition/ExampleSystemOperationDefinition",
+  "version": "0.1.0",
+  "name": "Patient summary - system",
+  "title": "Patient Summary - system",
+  "status": "draft",
+  "kind": "query",
+  "date": "2024-01-01T13:15:56.964-00:00",
+  "affectsState": false,
+  "code": "summary",
+  "resource": [
+    "Patient"
+  ],
+  "system": true,
+  "type": false,
+  "instance": false,
+  "parameter": [
+    {
+      "name": "identifier",
+      "use": "in",
+      "min": 1,
+      "max": "1",
+      "documentation": "The NHI number of the patient for whom the summary is being requested. This should be provided with the NHI namespace (e.g. 'https://standards.digital.health.nz/ns/nhi-id|ZZZ0032)",
+      "type": "string",
+      "searchType": "token"
+    },
+    {
+      "name": "profile",
+      "use": "in",
+      "min": 1,
+      "max": "1",
+      "documentation": "The profile for the patient summary being requested. For now, only a single profile is supported",
+      "type": "uri"
+    },
+    {
+      "name": "graph",
+      "use": "in",
+      "min": 0,
+      "max": "1",
+      "documentation": "Currently the summary operation does not require or support a graph definition. This parameter is included for future compatibility if needed.",
+      "type": "uri"
+    },
+    {
+      "name": "return",
+      "use": "out",
+      "min": 0,
+      "max": "1",
+      "documentation": "The Bundle returned is a document conforming to the specified input profile parameter",
+      "type": "Bundle"
+    }
+  ]
+}

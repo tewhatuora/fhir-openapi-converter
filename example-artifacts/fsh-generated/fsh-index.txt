@@ -1,0 +1,8 @@
+Output File                                                       Name                                     Type      FSH File                         Lines
+CapabilityStatement-ExampleCapabilityStatement.json               ExampleCapabilityStatement               Instance  ExampleCapabilityStatement.fsh   1 - 78
+OperationDefinition-ExampleOperationModeOperationDefinition.json  ExampleOperationModeOperationDefinition  Instance  ExampleOperationDefinitions.fsh  45 - 84
+OperationDefinition-ExampleQueryOperationDefinition.json          ExampleQueryOperationDefinition          Instance  ExampleOperationDefinitions.fsh  1 - 42
+OperationDefinition-ExampleSystemOperationDefinition.json         ExampleSystemOperationDefinition         Instance  ExampleOperationDefinitions.fsh  86 - 127
+Patient-example-patient-instance.json                             ExamplePatientInstance                   Instance  ExamplePatient.fsh               20 - 27
+StructureDefinition-example-patient-2.json                        ExamplePatientProfile2                   Profile   ExamplePatient.fsh               13 - 18
+StructureDefinition-example-patient.json                          ExamplePatientProfile                    Profile   ExamplePatient.fsh               1 - 11
