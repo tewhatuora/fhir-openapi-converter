@@ -90,6 +90,11 @@ const getOperationConfig = (
 
 const getCustomOperation = (config, operation, resourceType) => {
   const operationDefinition = config.igFiles[operation.definition];
+  if (!operationDefinition) {
+    throw new Error(
+      `Operation definition ${operation.definition} not found in the implementation guide`
+    );
+  }
   const outParam = operationDefinition?.parameter.find(
     (param) => param.use === 'out'
   );

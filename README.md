@@ -37,46 +37,37 @@
 
 ## Getting Started
 
-#### Installation
+### Prerequisites
 
 1. Install the [Node.js runtime.](https://nodejs.org/en/download)
-2. Clone the repo
+
+There are two ways to use this tool.
+
+#### 1) Bundled release
+
+The [Releases](https://github.com/tewhatuora/fhir-openapi-converter/releases) section of this repository contains a bundled JavaScript file which contains all dependencies. This file can be used alongside the usage instructions below without needing to install JavaScript dependencies or a package manager.
+
+#### 2) Development build
+
+A development build can be used, which can be helpful for debugging purposes. This method requires some additional steps.
+
+1. Clone the repo
    ```sh
    git clone https://github.com/tewhatuora/fhir-openapi-converter.git
    ```
-3. Install NPM packages using Yarn
+1. Install NPM packages using Yarn
    ```sh
    yarn install
    ```
 
-#### Development
+#### Tool usage and overview
 
-The `example-artifacts` directory contains some example FSH (FHIR Shorthand) files which contains example FHIR Profiles. When developing new features, specific FHIR features can be added to these files in order to develop against them.
-
-To compile the FSH files in the `example-artifacts/input` folder, run `sushi example-artifacts`. This will update the output files in the `example-artifacts/fsh-generated` folder. To run the tool using these artifacts, run `./src/cli.js --inputFolder ./example-artifacts`
-
-#### Configuration
-
-The following table lists the configurable command line options for the Converter CLI:
-
-| Option                | Alias | Type      | Description                                                                                                                                                                                                                                             | Default            |
-| --------------------- | ----- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
-| `inputFolder`         | `i`   | `string`  | Local path to the FHIR Implementation Guide package folder. Example: `--inputFolder ./example-artifacts`                                                                                                                                                | None               |
-| `outputFolder`        | `o`   | `string`  | Local path to write OpenAPI specifications. Example: `--outputFolder ./output`                                                                                                                                                                          | `./output`         |
-| `remoteUrl`           | `u`   | `string`  | Remote URL to download the FHIR Implementation Guide package. Example: `--remoteUrl https://build.fhir.org/ig/tewhatuora/fhir-auditevents/package.tgz`. When this option is used, a temporary folder is created on the OS to hold the downloaded files. | None               |
-| `persistFiles`        | `p`   | `boolean` | Whether or not downloaded Implementation Guides should be persisted for debugging. Example: `--persistFiles true`                                                                                                                                       | `false`            |
-| `dedupeSchemas`       | `dp`  | `boolean` | Whether or not to de-dedupe schemas to reduce spec size. Example: `--dedupeSchemas false`                                                                                                                                                               | `false`            |
-| `remoteDependencyUrl` | `d`   | `array`   | Url to retrieve a remote IG dependency                                                                                                                                                                                                                  |
-| `contentType`         | `ct`  | `string`  | Content type of the API responses                                                                                                                                                                                                                       | `application/json` |
-| `defaultResponses`    | `dt`  | `string`  | Comma separated string of response codes where an OperationOutcome is returned                                                                                                                                                                          | `400,401,403,500   |
-
-The `inputFolder` option is mutually exclusive with the `remoteUrl` option. Only one of these should be provided at a time. Either `inputFolder` or `remoteUrl` must be provided.
+Please review the [HNZ Digital Tooling IG](https://fhir-ig-uat.digital.health.nz/hnz-digital-tooling) for more information on the supported features of this tool.
 
 ### Usage Examples
 
 ```bash
 DEBUG=* ./src/cli.js --inputFolder ./example-artifacts
-DEBUG=* ./src/cli.js --remoteUrl https://build.fhir.org/ig/tewhatuora/fhir-auditevents/package.tgz --persistFiles true
 DEBUG=* ./src/cli.js --remoteUrl https://build.fhir.org/ig/tewhatuora/fhir-auditevents/package.tgz --remoteDependencyUrl https://fhir.org.nz/ig/base/package.tgz
 ```
 
@@ -84,12 +75,28 @@ The `DEBUG=*` environment variable can be used for print verbose debug logs to t
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-#### Tool usage and overview
+#### Configuration
 
-Please review the [HNZ Digital Tooling IG](https://fhir-ig-uat.digital.health.nz/hnz-digital-tooling) for more information on the usage and supported features of this tool.
+The following table lists the configurable command line options for the Converter CLI. In most cases, the default configuration should be suitable.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-<!-- LICENSE -->
+| Option                | Alias | Type      | Description                                                                                                                                                                                                                                             | Default            |
+| --------------------- | ----- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
+| `inputFolder`         | `i`   | `string`  | Local path to the FHIR Implementation Guide folder that contains built FSH artifacts. Example: `--inputFolder ./fsh-generated`                                                                                                                                                | None               |
+| `outputFolder`        | `o`   | `string`  | Local path to write OpenAPI specifications. Example: `--outputFolder ./output`                                                                                                                                                                          | `./output`         |
+| `remoteUrl`           | `u`   | `string`  | Remote URL to download the FHIR Implementation Guide package. Example: `--remoteUrl https://build.fhir.org/ig/tewhatuora/fhir-auditevents/package.tgz`. When this option is used, a temporary folder is created on the OS to hold the downloaded files. | None               |
+| `persistFiles`        | `p`   | `boolean` | Whether or not downloaded Implementation Guides should be persisted for debugging. Not applicable when inputFolder is used. Example: `--persistFiles true`                                                                                                                                       | `false`            |
+| `dedupeSchemas`       | `dp`  | `boolean` | Whether or not to de-dedupe schemas to reduce spec size. Example: `--dedupeSchemas false`                                                                                                                                                               | `false`            |
+| `remoteDependencyUrl` | `d`   | `array`   | Url to retrieve a remote IG dependency                                                                                                                                                                                                                  |
+| `contentType`         | `ct`  | `string`  | Content type of the API responses                                                                                                                                                                                                                       | `application/json` |
+| `defaultResponses`    | `dt`  | `string`  | Comma separated string of response codes where an OperationOutcome is generated in the specification                                                                                                                                                                          | 400,401,403,500   |
+
+The `inputFolder` option is mutually exclusive with the `remoteUrl` option. Only one of these should be provided at a time. Either `inputFolder` or `remoteUrl` must be provided.
+
+#### Development
+
+The `example-artifacts` directory contains some example FSH (FHIR Shorthand) files which contains example FHIR Profiles. When developing new features, specific FHIR features can be added to these files in order to develop against them.
+
+To compile the FSH files in the `example-artifacts/input` folder, run `sushi example-artifacts`. This will update the output files in the `example-artifacts/fsh-generated` folder. To run the tool using these artifacts, run `./src/cli.js --inputFolder ./example-artifacts`
 
 ## Releases
 Prerelease command:

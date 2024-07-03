@@ -9,7 +9,7 @@ describe('e2e tool tests using example-artifacts', () => {
     oas = await OpenAPIParser.parse(apiSpec);
   });
 
-  describe('General Requirements', () => {
-    test.todo('More tests');
+  test('should generate a consistent JSON file', async () => {
+    expect(oas).toMatchSnapshot();
   });
 });
