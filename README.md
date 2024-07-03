@@ -62,7 +62,7 @@ A development build can be used, which can be helpful for debugging purposes. Th
 
 #### Tool usage and overview
 
-Please review the [HNZ Digital Tooling IG](https://fhir-ig-uat.digital.health.nz/hnz-digital-tooling) for more information on the supported features of this tool.
+Please review the [HNZ Digital Tooling IG](https://fhir-ig-uat.digital.health.nz/hnz-digital-tooling) for more information on the supported features of this tool. This contains information on the prerequisites that an Implementation Guide must be to use this tool.
 
 ### Usage Examples
 
@@ -81,7 +81,7 @@ The following table lists the configurable command line options for the Converte
 
 | Option                | Alias | Type      | Description                                                                                                                                                                                                                                             | Default            |
 | --------------------- | ----- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
-| `inputFolder`         | `i`   | `string`  | Local path to the FHIR Implementation Guide folder that contains built FSH artifacts. Example: `--inputFolder ./fsh-generated`                                                                                                                                                | None               |
+| `inputFolder`         | `i`   | `string`  | Local path to the FHIR Implementation Guide folder that contains built FSH artifacts. Example: `--inputFolder ./my-ig/fsh-generated`                                                                                                                                                | None               |
 | `outputFolder`        | `o`   | `string`  | Local path to write OpenAPI specifications. Example: `--outputFolder ./output`                                                                                                                                                                          | `./output`         |
 | `remoteUrl`           | `u`   | `string`  | Remote URL to download the FHIR Implementation Guide package. Example: `--remoteUrl https://build.fhir.org/ig/tewhatuora/fhir-auditevents/package.tgz`. When this option is used, a temporary folder is created on the OS to hold the downloaded files. | None               |
 | `persistFiles`        | `p`   | `boolean` | Whether or not downloaded Implementation Guides should be persisted for debugging. Not applicable when inputFolder is used. Example: `--persistFiles true`                                                                                                                                       | `false`            |
@@ -106,6 +106,11 @@ npm version prerelease
 git push
 git push --tags
 ```
+## FAQ
+
+**Q: The tool outputs the error, Error: No CapabilityStatements found matching https://fhir-ig.digital.health.nz/hnz-digital-tooling/StructureDefinition/hnz-capability-statement**
+
+A: In order to use this tool, the IG CapabilityStatement must be an instance of the profile defined in [HNZ Digital Tooling IG](https://fhir-ig.digital.health.nz/hnz-digital-tooling/OpenAPI-Converter.html).
 
 ## License
 
