@@ -175,7 +175,7 @@ async function writeOasFiles(config, oas, capabilityStatement) {
     debug('Output files are disabled');
     return;
   }
-
+  let spec = oas;
   if (!fs.existsSync(config.outputFolder)) {
     fs.mkdirSync(config.outputFolder, { recursive: true });
   }
@@ -183,10 +183,14 @@ async function writeOasFiles(config, oas, capabilityStatement) {
   const jsonFilePath = `${config.outputFolder}/${capabilityStatement.id}.openapi.json`;
   const yamlFilePath = `${config.outputFolder}/${capabilityStatement.id}.openapi.yaml`;
 
-  const dereferencedOas = await OpenAPIParser.dereference(oas);
-  fs.writeFileSync(jsonFilePath, JSON.stringify(dereferencedOas, null, 2));
+  if (config.dereferenceOutput) {
+    debug('Deferencing output');
+    spec = await OpenAPIParser.dereference(oas);
+  }
+
+  fs.writeFileSync(jsonFilePath, JSON.stringify(spec, null, 2));
   debug(`Created OpenAPI JSON file: ${jsonFilePath}`);
-  fs.writeFileSync(yamlFilePath, YAML.stringify(dereferencedOas));
+  fs.writeFileSync(yamlFilePath, YAML.stringify(spec));
   debug(`Created OpenAPI YAML file: ${yamlFilePath}`);
 };
 

@@ -32,6 +32,14 @@ const getArgs = () => {
         'Remote URL to download the FHIR Implementation Guide package dependencies. Example: --remoteDependencyUrl https://fhir.org.nz/ig/base/package.tgz',
       demandOption: false,
     })
+    .option('dereferenceOutput', {
+      default: true,
+      alias: 'dr',
+      type: 'boolean',
+      description:
+        'Whether or not to dereference the output OpenAPI specification. Example: --dereferenceOutput false',
+      demandOption: false,
+    })
     .option('persistFiles', {
       default: false,
       alias: 'p',

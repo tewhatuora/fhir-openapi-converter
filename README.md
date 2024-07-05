@@ -89,6 +89,7 @@ The following table lists the configurable command line options for the Converte
 | `remoteDependencyUrl` | `d`   | `array`   | Url to retrieve a remote IG dependency                                                                                                                                                                                                                  |
 | `contentType`         | `ct`  | `string`  | Content type of the API responses                                                                                                                                                                                                                       | `application/json` |
 | `defaultResponses`    | `dt`  | `string`  | Comma separated string of response codes where an OperationOutcome is generated in the specification                                                                                                                                                                          | 400,401,403,500   |
+|`dereferenceOutput`| `d`| `boolean`| Whether or not to fully deference the output specification | `true`
 
 The `inputFolder` option is mutually exclusive with the `remoteUrl` option. Only one of these should be provided at a time. Either `inputFolder` or `remoteUrl` must be provided.
 
