@@ -9,7 +9,7 @@ const streamPipeline = util.promisify(pipeline);
 const tmp = require('tmp');
 const tar = require('tar');
 const { walk } = require('@nodelib/fs.walk');
-const YAML = require('json-to-pretty-yaml');
+const YAML = require('yaml');
 const { CAPABILITY_STATEMENT_URL } = require('./constants');
 
 // Set up graceful cleanup of temporary files

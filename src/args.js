@@ -34,7 +34,6 @@ const getArgs = () => {
     })
     .option('dereferenceOutput', {
       default: true,
-      alias: 'dr',
       type: 'boolean',
       description:
         'Whether or not to dereference the output OpenAPI specification. Example: --dereferenceOutput false',

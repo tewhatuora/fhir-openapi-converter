@@ -22,11 +22,11 @@
     "@readme/openapi-parser": "^2.5.1",
     "debug": "^4.3.4",
     "fhir-package-loader": "^1.0.0",
-    "json-to-pretty-yaml": "^1.2.2",
     "lodash": "^4.17.21",
     "object-hash": "^3.0.0",
     "tar": "^7.1.0",
     "tmp": "^0.2.3",
+    "yaml": "^2.4.5",
     "yargs": "^17.7.2"
   },
   "packageManager": "yarn@4.2.2",
