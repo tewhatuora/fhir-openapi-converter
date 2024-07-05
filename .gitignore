@@ -4,3 +4,4 @@ output*
 testoutput*
 report.html
 dist*
+.yarn/install-state.gz
