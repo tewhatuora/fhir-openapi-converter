@@ -21,7 +21,7 @@ const main = async (config) => {
         { ...config, packageDirectory, igFiles },
         capabilityStatement
       );
-      writeOasFiles(config, oas, capabilityStatement);
+      await writeOasFiles(config, oas, capabilityStatement);
       // Validate the output is a valid OpenAPI specification
       await OpenAPIParser.validate(oas);
       return oas;

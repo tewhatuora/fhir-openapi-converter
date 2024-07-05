@@ -1,5 +1,6 @@
 const fs = require('fs');
 const debug = require('debug')('fhir-oasgen:utils');
+const OpenAPIParser = require('@readme/openapi-parser');
 const { get } = require('lodash');
 const zlib = require('zlib');
 const { pipeline } = require('stream');
@@ -169,7 +170,7 @@ async function getMatchingArtifacts(config, matcherKey, matcherValue) {
  * @param {Object} oas - The OpenAPI specification object.
  * @param {Object} capabilityStatement - A FHIR CapabilityStatement.
  */
-function writeOasFiles(config, oas, capabilityStatement) {
+async function writeOasFiles(config, oas, capabilityStatement) {
   if (config.disableOutputFiles) {
     debug('Output files are disabled');
     return;
@@ -182,11 +183,12 @@ function writeOasFiles(config, oas, capabilityStatement) {
   const jsonFilePath = `${config.outputFolder}/${capabilityStatement.id}.openapi.json`;
   const yamlFilePath = `${config.outputFolder}/${capabilityStatement.id}.openapi.yaml`;
 
-  fs.writeFileSync(jsonFilePath, JSON.stringify(oas, null, 2));
+  const dereferencedOas = await OpenAPIParser.dereference(oas);
+  fs.writeFileSync(jsonFilePath, JSON.stringify(dereferencedOas, null, 2));
   debug(`Created OpenAPI JSON file: ${jsonFilePath}`);
-  fs.writeFileSync(yamlFilePath, YAML.stringify(oas));
+  fs.writeFileSync(yamlFilePath, YAML.stringify(dereferencedOas));
   debug(`Created OpenAPI YAML file: ${yamlFilePath}`);
-}
+};
 
 module.exports = {
   addOrUpdatePath,
