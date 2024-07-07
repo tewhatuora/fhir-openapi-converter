@@ -17,22 +17,6 @@
     <br />
 </div>
 
-<!-- TABLE OF CONTENTS -->
-<details>
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#installation">Installation</a></li>
-        <li><a href="#configuration">Configuration</a></li>
-      </ul>
-    </li>
-     <li><a href="#supported-features">Supported features</a></li>
-    <li><a href="#license">License</a></li>
-  </ol>
-</details>
-
 <!-- GETTING STARTED -->
 
 ## Getting Started
@@ -95,7 +79,7 @@ The `inputFolder` option is mutually exclusive with the `remoteUrl` option. Only
 
 #### Development
 
-The `example-artifacts` directory contains some example FSH (FHIR Shorthand) files which contains example FHIR Profiles. When developing new features, specific FHIR features can be added to these files in order to develop against them.
+The `example-artifacts` directory contains an example, minimal Implementation Guide using FSH (FHIR Shorthand) files which contains an example CapabilityStatement used for development. When developing new features for this tool, updates should be made to this IG to test the feature.
 
 To compile the FSH files in the `example-artifacts/input` folder, run `sushi example-artifacts`. This will update the output files in the `example-artifacts/fsh-generated` folder. To run the tool using these artifacts, run `./src/cli.js --inputFolder ./example-artifacts`
 
