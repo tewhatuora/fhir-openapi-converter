@@ -67,11 +67,11 @@ Please review the [HNZ Digital Tooling IG](https://fhir-ig-uat.digital.health.nz
 ### Usage Examples
 
 ```bash
-DEBUG=* ./src/cli.js --inputFolder ./example-artifacts
-DEBUG=* ./src/cli.js --remoteUrl https://build.fhir.org/ig/tewhatuora/fhir-auditevents/package.tgz --remoteDependencyUrl https://fhir.org.nz/ig/base/package.tgz
+./src/cli.js --inputFolder ./example-artifacts
+./src/cli.js --remoteUrl https://build.fhir.org/ig/tewhatuora/fhir-auditevents/package.tgz --remoteDependencyUrl https://fhir.org.nz/ig/base/package.tgz
 ```
 
-The `DEBUG=*` environment variable can be used for print verbose debug logs to the console. e.g. `DEBUG=* ./src/cli.js --inputFolder ./example-artifacts`
+The `LOG_LEVEL` environment variable can be used to set a log level for output written to the console. e.g. `LOG_LEVEL=debug ./src/cli.js --inputFolder ./example-artifacts`. The default settings is `info`.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -81,15 +81,15 @@ The following table lists the configurable command line options for the Converte
 
 | Option                | Alias | Type      | Description                                                                                                                                                                                                                                             | Default            |
 | --------------------- | ----- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
-| `inputFolder`         | `i`   | `string`  | Local path to the FHIR Implementation Guide folder that contains built FSH artifacts. Example: `--inputFolder ./my-ig/fsh-generated`                                                                                                                                                | None               |
+| `inputFolder`         | `i`   | `string`  | Local path to the FHIR Implementation Guide folder that contains built FSH artifacts. Example: `--inputFolder ./my-ig/fsh-generated`                                                                                                                    | None               |
 | `outputFolder`        | `o`   | `string`  | Local path to write OpenAPI specifications. Example: `--outputFolder ./output`                                                                                                                                                                          | `./output`         |
 | `remoteUrl`           | `u`   | `string`  | Remote URL to download the FHIR Implementation Guide package. Example: `--remoteUrl https://build.fhir.org/ig/tewhatuora/fhir-auditevents/package.tgz`. When this option is used, a temporary folder is created on the OS to hold the downloaded files. | None               |
-| `persistFiles`        | `p`   | `boolean` | Whether or not downloaded Implementation Guides should be persisted for debugging. Not applicable when inputFolder is used. Example: `--persistFiles true`                                                                                                                                       | `false`            |
+| `persistFiles`        | `p`   | `boolean` | Whether or not downloaded Implementation Guides should be persisted for debugging. Not applicable when inputFolder is used. Example: `--persistFiles true`                                                                                              | `false`            |
 | `dedupeSchemas`       | `dp`  | `boolean` | Whether or not to de-dedupe schemas to reduce spec size. Example: `--dedupeSchemas false`                                                                                                                                                               | `false`            |
 | `remoteDependencyUrl` | `d`   | `array`   | Url to retrieve a remote IG dependency                                                                                                                                                                                                                  |
 | `contentType`         | `ct`  | `string`  | Content type of the API responses                                                                                                                                                                                                                       | `application/json` |
-| `defaultResponses`    | `dt`  | `string`  | Comma separated string of response codes where an OperationOutcome is generated in the specification                                                                                                                                                                          | 400,401,403,500   |
-|`dereferenceOutput`| | `boolean`| Whether or not to fully deference the output specification | `true`
+| `defaultResponses`    | `dt`  | `string`  | Comma separated string of response codes where an OperationOutcome is generated in the specification                                                                                                                                                    | 400,401,403,500    |
+| `dereferenceOutput`   |       | `boolean` | Whether or not to fully deference the output specification                                                                                                                                                                                              | `true`             |
 
 The `inputFolder` option is mutually exclusive with the `remoteUrl` option. Only one of these should be provided at a time. Either `inputFolder` or `remoteUrl` must be provided.
 
@@ -100,6 +100,7 @@ The `example-artifacts` directory contains some example FSH (FHIR Shorthand) fil
 To compile the FSH files in the `example-artifacts/input` folder, run `sushi example-artifacts`. This will update the output files in the `example-artifacts/fsh-generated` folder. To run the tool using these artifacts, run `./src/cli.js --inputFolder ./example-artifacts`
 
 ## Releases
+
 Prerelease command:
 
 ```
@@ -107,6 +108,7 @@ npm version prerelease
 git push
 git push --tags
 ```
+
 ## FAQ
 
 **Q: The tool outputs the error, Error: No CapabilityStatements found matching https://fhir-ig.digital.health.nz/hnz-digital-tooling/StructureDefinition/hnz-capability-statement**

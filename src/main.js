@@ -1,4 +1,3 @@
-const debug = require('debug')('fhir-oasgen:main');
 const OpenAPIParser = require('@readme/openapi-parser');
 const { generateOpenApiSpec } = require('./openApiGenerator');
 const { getFHIRArtifacts, writeOasFiles } = require('./utils');

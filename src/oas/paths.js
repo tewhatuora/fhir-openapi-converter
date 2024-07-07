@@ -1,4 +1,4 @@
-const debug = require('debug')('fhir-oasgen:paths');
+const logger = require('../logger');
 const {
   renderParameter,
   getPathParameter,
@@ -19,7 +19,7 @@ const buildReadPath = async (
   profileSchemas,
   examples
 ) => {
-  debug(`Building read path for ${serverResource.type}`);
+  logger.debug(`Building read path for ${serverResource.type}`);
   return {
     [`/${serverResource.type}/{rid}`]: {
       get: {
@@ -66,7 +66,7 @@ const buildVersionedReadPath = async (
   profileSchemas,
   examples
 ) => {
-  debug(`Building vread path for ${serverResource.type}`);
+  logger.debug(`Building vread path for ${serverResource.type}`);
   return {
     [`/${serverResource.type}/{rid}/_history/{vid}`]: {
       get: {
@@ -114,7 +114,7 @@ const buildCreatePath = async (
   profileSchemas,
   examples
 ) => {
-  debug(`Building create path for ${serverResource.type}`);
+  logger.debug(`Building create path for ${serverResource.type}`);
   return {
     [`/${serverResource.type}`]: {
       post: {
@@ -164,7 +164,7 @@ const buildPatchPath = async (
   profileSchemas,
   examples
 ) => {
-  debug(`Building patch path for ${serverResource.type}`);
+  logger.debug(`Building patch path for ${serverResource.type}`);
   return {
     [`/${serverResource.type}/{rid}`]: {
       patch: {
@@ -217,7 +217,7 @@ const buildSearchPath = async (
   profileSchemas,
   examples
 ) => {
-  debug(`Building search path for ${serverResource.type}`);
+  logger.debug(`Building search path for ${serverResource.type}`);
   return {
     [`/${serverResource.type}`]: {
       get: {
@@ -261,7 +261,7 @@ const buildUpdatePath = async (
   profileSchemas,
   examples
 ) => {
-  debug(`Building update path for ${serverResource.type}`);
+  logger.debug(`Building update path for ${serverResource.type}`);
   return {
     [`/${serverResource.type}/{rid}`]: {
       put: {
@@ -314,7 +314,7 @@ const buildDeletePath = async (
   profileSchemas,
   examples
 ) => {
-  debug(`Building delete path for ${serverResource.type}`);
+  logger.debug(`Building delete path for ${serverResource.type}`);
   return {
     [`/${serverResource.type}/{rid}`]: {
       delete: {
@@ -360,7 +360,7 @@ const buildPaths = async (config, capabilityStatement) => {
     (r) => r.mode === 'server'
   );
   if (!serverRest) {
-    debug('No server mode found in the CapabilityStatement.');
+    logger.debug('No server mode found in the CapabilityStatement.');
     return {};
   }
 
@@ -446,11 +446,11 @@ const systemLevelPaths = async (config, interactions, operations) => {
 
 const capabilityStatementRestResourceToPath = async (config, resource) => {
   const { type, interaction, operation } = resource;
-  debug(
+  logger.debug(
     `Building paths for ${type}. ${interaction?.length} interactions found. ${operation?.length} custom operations found.`
   );
-  debug(`Supported profiles: ${resource.supportedProfile}`);
-  debug(`Base profile: ${resource.profile}`);
+  logger.debug(`Supported profiles: ${resource.supportedProfile}`);
+  logger.debug(`Base profile: ${resource.profile}`);
   const profileSchemas = await generateOasSchemasFromProfiles(
     config,
     type,
@@ -520,7 +520,7 @@ const capabilityStatementRestResourceToPath = async (config, resource) => {
           );
           break;
         default:
-          debug(`Unsupported interaction found for ${type}: ${code}`);
+          logger.debug(`Unsupported interaction found for ${type}: ${code}`);
           return;
       }
 

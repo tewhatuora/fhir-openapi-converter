@@ -1,5 +1,5 @@
 const _ = require('lodash');
-const debug = require('debug')('fhir-oasgen:customisation');
+const logger = require('../logger');
 const { CAPABILITY_STATEMENT_EXTENSIONS_URL } = require('../constants');
 
 const extractCustomExtensions = (capabilityStatement) => {
@@ -26,7 +26,7 @@ const extractCustomExtensions = (capabilityStatement) => {
               },
             });
           } else {
-            debug('Invalid header configuration:', item);
+            logger.debug('Invalid header configuration:', item);
           }
         });
       }
@@ -44,12 +44,12 @@ const extractCustomExtensions = (capabilityStatement) => {
     url: 'externalDocs',
   })?.valueUri;
 
-  debug(
+  logger.debug(
     'Custom globalHeaders found:',
-    globalHeaders ? JSON.stringify(globalHeaders) : 'none'
+    globalHeaders ? {globalHeaders} : 'none'
   );
-  debug('licenseName:', licenseName);
-  debug('externalDocs:', externalDocs);
+  logger.debug('licenseName:', {licenseName});
+  logger.debug('externalDocs:', {externalDocs});
 
   return {
     licenseURL,

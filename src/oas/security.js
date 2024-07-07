@@ -1,4 +1,4 @@
-const debug = require('debug')('fhir-oasgen:security');
+const logger = require('../logger');
 const _ = require('lodash');
 
 /**
@@ -12,24 +12,24 @@ const convertFhirSecurityToOpenApi = (security) => {
   if (security?.service?.length) {
     security.service?.forEach((service) => {
       if (service.coding[0].code === 'SMART-on-FHIR') {
-        debug('Found SMART-on-FHIR security scheme');
+        logger.debug('Found SMART-on-FHIR security scheme');
         allSecuritySchemes['smartOnFhir'] = convertOauthSecurityToOpenApi(
           service.coding[0].code,
           security
         );
         smartFeatures = getSMARTScopeBases(security);
       } else if (service.coding[0].code === 'OAuth') {
-        debug('Found OAuth security scheme');
+        logger.debug('Found OAuth security scheme');
         allSecuritySchemes['OAuth'] = convertOauthSecurityToOpenApi(
           service.coding[0].code,
           security
         );
       } else {
-        debug('Found unknown security scheme');
+        logger.debug('Found unknown security scheme');
       }
     });
   } else {
-    debug('No security schemes found in CapabilityStatement');
+    logger.debug('No security schemes found in CapabilityStatement');
   }
   return {
     securitySchemes: allSecuritySchemes,
@@ -49,7 +49,7 @@ const getSMARTScopeBases = (security) => {
       'http://fhir-registry.smarthealthit.org/StructureDefinition/capabilities'
   );
   if (!capabilities) {
-    debug(
+    logger.debug(
       'No SMART-on-FHIR capabilities found by extension "http://fhir-registry.smarthealthit.org/StructureDefinition/capabilities"'
     );
     return [];
@@ -64,7 +64,7 @@ const getSMARTScopeBases = (security) => {
         return 'patient';
     }
   });
-  debug('Found SMART-on-FHIR base scopes', smartFeatures);
+  logger.debug('Found SMART-on-FHIR base scopes', smartFeatures);
   return smartFeatures;
 };
 
@@ -100,7 +100,7 @@ const convertOauthSecurityToOpenApi = (code, security) => {
     );
 
     if (authorizeExt) {
-      debug('Found OAuth authorization code flow');
+      logger.debug('Found OAuth authorization code flow');
       openApiSecuritySchema.flows.authorizationCode = {
         authorizationUrl: authorizeExt.valueUri,
         tokenUrl: tokenExt ? tokenExt.valueUri : '',
@@ -108,14 +108,14 @@ const convertOauthSecurityToOpenApi = (code, security) => {
       };
     }
     if (tokenExt) {
-      debug('Found OAuth client credentials code flow');
+      logger.debug('Found OAuth client credentials code flow');
       openApiSecuritySchema.flows.clientCredentials = {
         tokenUrl: tokenExt.valueUri,
         scopes: {},
       };
     }
   } else {
-    debug(
+    logger.debug(
       `Found no oAuth extensions from "http://fhir-registry.smarthealthit.org/StructureDefinition/oauth-uris"`
     );
   }

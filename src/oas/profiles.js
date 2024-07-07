@@ -1,4 +1,4 @@
-const debug = require('debug')('fhir-oasgen:profiles');
+const logger = require('../logger');
 const { OAS_SCHEMA_BASE_URL } = require('../constants');
 
 const generateOasSchemasFromProfiles = async (
@@ -43,7 +43,7 @@ const generateOasSchemasFromProfiles = async (
 };
 
 const fetchBaseOasSchema = async (type) => {
-  debug(`Fetching Base OAS schema for ${type}`);
+  logger.debug(`Fetching Base OAS schema for ${type}`);
   const res = await fetch(`${OAS_SCHEMA_BASE_URL}${type}-definition.json`);
   return await res.json();
 };
@@ -66,7 +66,7 @@ const applyStructureDefinitionChanges = (schema, structureDefinition) => {
 
   element.forEach((element) => {
     if (element.id.includes(':')) {
-      debug(`Ignoring element slice with id: ${element.id}`);
+      logger.debug(`Ignoring element slice with id: ${element.id}`);
       return;
     }
     const jsonPath = element.path.replace(`${structureDefinition.type}.`, '');

@@ -1,5 +1,5 @@
 const fs = require('fs');
-const debug = require('debug')('fhir-oasgen:utils');
+const logger = require('./logger');
 const OpenAPIParser = require('@readme/openapi-parser');
 const { get } = require('lodash');
 const zlib = require('zlib');
@@ -25,15 +25,15 @@ async function downloadPackages(urls, persistFiles) {
   const tempDir = tmp.dirSync({ unsafeCleanup: !persistFiles });
   const extractPath = `${tempDir.name}/extracted`;
   fs.mkdirSync(extractPath, { recursive: true });
-  debug(`Created temporary directory for extraction: ${extractPath}`);
+  logger.debug(`Created temporary directory for extraction: ${extractPath}`);
   await Promise.all(
     urls.map(async (url, index) => {
-      debug(`Downloading package from: ${url}`);
+      logger.debug(`Downloading package from: ${url}`);
       const response = await fetch(url);
       // Append a unique identifier to each filename
       const packagePath = `${tempDir.name}/package-${index}.tgz`;
 
-      debug(`Writing to temporary file: ${packagePath}`);
+      logger.debug(`Writing to temporary file: ${packagePath}`);
       await streamPipeline(response.body, fs.createWriteStream(packagePath));
       await streamPipeline(
         fs.createReadStream(packagePath),
@@ -77,7 +77,7 @@ const addOrUpdatePath = (paths, pathKey, operations) => {
  * @returns {Promise<Array>} - An array of processed JSON objects that match the filter.
  */
 async function walkAndProcess(directory) {
-  debug('Reading directory json files:', directory);
+  logger.debug('Reading directory json files:', {directory});
   const entries = {
     CapabilityStatements: [],
     examples: {},
@@ -132,7 +132,7 @@ async function getFHIRArtifacts(config) {
       if (matchesTargetCapabilityProfile) {
         return true;
       } else {
-        debug(
+        logger.warn(
           `Ignoring CapabilityStatement with URL: ${capabilityStatement.id}, must be InstanceOf ${CAPABILITY_STATEMENT_URL}`
         );
         return false;
@@ -172,7 +172,7 @@ async function getMatchingArtifacts(config, matcherKey, matcherValue) {
  */
 async function writeOasFiles(config, oas, capabilityStatement) {
   if (config.disableOutputFiles) {
-    debug('Output files are disabled');
+    logger.warn('Output files are disabled');
     return;
   }
   let spec = oas;
@@ -184,15 +184,15 @@ async function writeOasFiles(config, oas, capabilityStatement) {
   const yamlFilePath = `${config.outputFolder}/${capabilityStatement.id}.openapi.yaml`;
 
   if (config.dereferenceOutput) {
-    debug('Deferencing output');
+    logger.debug('Deferencing output');
     spec = await OpenAPIParser.dereference(oas);
   }
 
   fs.writeFileSync(jsonFilePath, JSON.stringify(spec, null, 2));
-  debug(`Created OpenAPI JSON file: ${jsonFilePath}`);
+  logger.info(`Created OpenAPI JSON file: ${jsonFilePath}`);
   fs.writeFileSync(yamlFilePath, YAML.stringify(spec));
-  debug(`Created OpenAPI YAML file: ${yamlFilePath}`);
-};
+  logger.info(`Created OpenAPI YAML file: ${yamlFilePath}`);
+}
 
 module.exports = {
   addOrUpdatePath,

@@ -1,4 +1,4 @@
-const debug = require('debug')('fhir-oasgen:generator');
+const logger = require('./logger');
 const _ = require('lodash');
 const { buildPaths } = require('./oas/paths');
 const { deduplicateTopLevelProperties } = require('./de-dupe-schemas');
@@ -129,7 +129,7 @@ const generateOpenApiSpec = async (config, capabilityStatement) => {
   }
 
   if (config.dedupeSchemas) {
-    debug('De-duping schemeas');
+    logger.debug('De-duping schemeas');
     _.set(
       oas,
       'components.schemas',

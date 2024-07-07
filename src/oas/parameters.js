@@ -1,4 +1,4 @@
-const debug = require('debug')('fhir-oasgen:parameters');
+const logger = require('../logger');
 
 const renderParameter = (searchParam, options = {}) => {
   options.in = options.in || 'query';
@@ -37,7 +37,7 @@ const renderParameter = (searchParam, options = {}) => {
       };
     default:
       // Handling unsupported parameter types
-      debug(
+      logger.debug(
         `Unsupported parameter found ${searchParam.name}: ${searchParam.type}`
       );
       return {

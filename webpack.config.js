@@ -13,5 +13,5 @@ module.exports = {
       raw: true,
       banner: '#!/usr/bin/env node',
     }),
-  ]
+  ],
 };
