@@ -25,10 +25,10 @@
   ],
   "dependsOn": [
     {
-      "packageId": "tewhatuora.digitaltooling.iguat",
-      "version": "0.0.5",
-      "uri": "https://fhir-ig-uat.digital.health.nz/hnz-digital-tooling/ImplementationGuide/tewhatuora.digitaltooling.iguat",
-      "id": "tewhatuora_digitaltooling_iguat"
+      "packageId": "tewhatuora.digitaltooling",
+      "version": "0.0.6",
+      "uri": "https://fhir-ig.digital.health.nz/hnz-digital-tooling/ImplementationGuide/tewhatuora.digitaltooling",
+      "id": "tewhatuora_digitaltooling"
     }
   ],
   "definition": {

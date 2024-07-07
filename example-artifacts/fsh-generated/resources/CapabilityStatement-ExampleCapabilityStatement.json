@@ -3,13 +3,13 @@
   "id": "ExampleCapabilityStatement",
   "meta": {
     "profile": [
-      "https://fhir-ig-uat.digital.health.nz/hnz-digital-tooling/StructureDefinition/hnz-capability-statement"
+      "https://fhir-ig.digital.health.nz/hnz-digital-tooling/StructureDefinition/hnz-capability-statement"
     ]
   },
   "url": "https://example.com/CapabilityStatement/ExampleCapabilityStatement",
   "extension": [
     {
-      "url": "https://fhir-ig-uat.digital.health.nz/hnz-digital-tooling/StructureDefinition/resource-metadata-extension",
+      "url": "https://fhir-ig.digital.health.nz/hnz-digital-tooling/StructureDefinition/resource-metadata-extension",
       "extension": [
         {
           "url": "licenseURL",
@@ -26,7 +26,7 @@
         {
           "extension": [
             {
-              "url": "https://fhir-ig-uat.digital.health.nz/hnz-digital-tooling/StructureDefinition/custom-headers-extension",
+              "url": "https://fhir-ig.digital.health.nz/hnz-digital-tooling/StructureDefinition/custom-headers-extension",
               "extension": [
                 {
                   "url": "key",

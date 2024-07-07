@@ -175,7 +175,7 @@ async function updateCustomHeaders(
   const resourceMetadataExtension = originalCapabilityStatement.extension.find(
     (ext) =>
       ext.url ===
-      'https://fhir-ig-uat.digital.health.nz/hnz-digital-tooling/StructureDefinition/resource-metadata-extension'
+      'https://fhir-ig.digital.health.nz/hnz-digital-tooling/StructureDefinition/resource-metadata-extension'
   );
 
   const globalHeadersExtension = resourceMetadataExtension.extension.find(
@@ -185,7 +185,7 @@ async function updateCustomHeaders(
   const customHeadersExtension = globalHeadersExtension.extension.find(
     (ext) =>
       ext.url ===
-      'https://fhir-ig-uat.digital.health.nz/hnz-digital-tooling/StructureDefinition/custom-headers-extension'
+      'https://fhir-ig.digital.health.nz/hnz-digital-tooling/StructureDefinition/custom-headers-extension'
   );
 
   // Modify the custom header name and required status

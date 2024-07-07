@@ -62,7 +62,7 @@ A development build can be used, which can be helpful for debugging purposes. Th
 
 #### Tool usage and overview
 
-Please review the [HNZ Digital Tooling IG](https://fhir-ig-uat.digital.health.nz/hnz-digital-tooling) for more information on the supported features of this tool. This contains information on the prerequisites that an Implementation Guide must be to use this tool.
+Review the [HNZ Digital Tooling IG](https://fhir-ig.digital.health.nz/hnz-digital-tooling) for more information on the supported features of this tool. This contains information on the prerequisites that an Implementation Guide **MUST** meet in order to use this tool.
 
 ### Usage Examples
 
