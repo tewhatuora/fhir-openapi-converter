@@ -5,7 +5,7 @@
     "fshType": "Instance",
     "fshFile": "ExampleCapabilityStatement.fsh",
     "startLine": 1,
-    "endLine": 78
+    "endLine": 81
   },
   {
     "outputFile": "OperationDefinition-ExampleOperationModeOperationDefinition.json",

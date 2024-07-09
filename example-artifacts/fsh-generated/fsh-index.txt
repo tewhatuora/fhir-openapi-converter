@@ -1,5 +1,5 @@
 Output File                                                       Name                                     Type      FSH File                         Lines
-CapabilityStatement-ExampleCapabilityStatement.json               ExampleCapabilityStatement               Instance  ExampleCapabilityStatement.fsh   1 - 78
+CapabilityStatement-ExampleCapabilityStatement.json               ExampleCapabilityStatement               Instance  ExampleCapabilityStatement.fsh   1 - 81
 OperationDefinition-ExampleOperationModeOperationDefinition.json  ExampleOperationModeOperationDefinition  Instance  ExampleOperationDefinitions.fsh  45 - 84
 OperationDefinition-ExampleQueryOperationDefinition.json          ExampleQueryOperationDefinition          Instance  ExampleOperationDefinitions.fsh  1 - 42
 OperationDefinition-ExampleSystemOperationDefinition.json         ExampleSystemOperationDefinition         Instance  ExampleOperationDefinitions.fsh  86 - 127

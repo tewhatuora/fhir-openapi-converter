@@ -34,13 +34,30 @@
                 },
                 {
                   "url": "value",
-                  "valueUri": "https://raw.githubusercontent.com/tewhatuora/schemas/main/fhir-definitions-oas/uuid-definition.json"
+                  "valueUri": "https://raw.githubusercontent.com/tewhatuora/schemas/main/shared-care/Correlation-Id.json"
                 },
                 {
                   "url": "required",
                   "valueBoolean": true
                 }
               ]
+            },
+            {
+              "extension": [
+                {
+                  "url": "key",
+                  "valueString": "x-api-key"
+                },
+                {
+                  "url": "value",
+                  "valueUri": "https://raw.githubusercontent.com/tewhatuora/schemas/main/shared-care/Api-Key.json"
+                },
+                {
+                  "url": "required",
+                  "valueBoolean": false
+                }
+              ],
+              "url": "https://fhir-ig.digital.health.nz/hnz-digital-tooling/StructureDefinition/custom-headers-extension"
             }
           ],
           "url": "globalHeaders"

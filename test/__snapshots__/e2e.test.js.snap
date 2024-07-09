@@ -4917,8 +4917,16 @@ Modifier extensions SHALL NOT change the meaning of any elements on Resource or 
             "name": "Correlation-Id",
             "required": true,
             "schema": {
-              "description": "A UUID, represented as a URI",
-              "pattern": "^urn:uuid:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+              "description": "A string representing the Correlation ID for the current request. This ID is used to correlate logs and other data across services.",
+              "type": "string",
+            },
+          },
+          {
+            "in": "header",
+            "name": "x-api-key",
+            "required": false,
+            "schema": {
+              "description": "A string representing the API key for the current request.",
               "type": "string",
             },
           },
@@ -5044,8 +5052,16 @@ Modifier extensions SHALL NOT change the meaning of any elements on Resource or 
             "name": "Correlation-Id",
             "required": true,
             "schema": {
-              "description": "A UUID, represented as a URI",
-              "pattern": "^urn:uuid:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+              "description": "A string representing the Correlation ID for the current request. This ID is used to correlate logs and other data across services.",
+              "type": "string",
+            },
+          },
+          {
+            "in": "header",
+            "name": "x-api-key",
+            "required": false,
+            "schema": {
+              "description": "A string representing the API key for the current request.",
               "type": "string",
             },
           },
@@ -8601,8 +8617,16 @@ Modifier extensions SHALL NOT change the meaning of any elements on Resource or 
             "name": "Correlation-Id",
             "required": true,
             "schema": {
-              "description": "A UUID, represented as a URI",
-              "pattern": "^urn:uuid:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+              "description": "A string representing the Correlation ID for the current request. This ID is used to correlate logs and other data across services.",
+              "type": "string",
+            },
+          },
+          {
+            "in": "header",
+            "name": "x-api-key",
+            "required": false,
+            "schema": {
+              "description": "A string representing the API key for the current request.",
               "type": "string",
             },
           },
@@ -12992,8 +13016,16 @@ Modifier extensions SHALL NOT change the meaning of any elements on Resource or 
             "name": "Correlation-Id",
             "required": true,
             "schema": {
-              "description": "A UUID, represented as a URI",
-              "pattern": "^urn:uuid:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+              "description": "A string representing the Correlation ID for the current request. This ID is used to correlate logs and other data across services.",
+              "type": "string",
+            },
+          },
+          {
+            "in": "header",
+            "name": "x-api-key",
+            "required": false,
+            "schema": {
+              "description": "A string representing the API key for the current request.",
               "type": "string",
             },
           },
@@ -17392,8 +17424,16 @@ Modifier extensions SHALL NOT change the meaning of any elements on Resource or 
             "name": "Correlation-Id",
             "required": true,
             "schema": {
-              "description": "A UUID, represented as a URI",
-              "pattern": "^urn:uuid:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+              "description": "A string representing the Correlation ID for the current request. This ID is used to correlate logs and other data across services.",
+              "type": "string",
+            },
+          },
+          {
+            "in": "header",
+            "name": "x-api-key",
+            "required": false,
+            "schema": {
+              "description": "A string representing the API key for the current request.",
               "type": "string",
             },
           },
@@ -22645,8 +22685,16 @@ Modifier extensions SHALL NOT change the meaning of any elements on Resource or 
             "name": "Correlation-Id",
             "required": true,
             "schema": {
-              "description": "A UUID, represented as a URI",
-              "pattern": "^urn:uuid:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+              "description": "A string representing the Correlation ID for the current request. This ID is used to correlate logs and other data across services.",
+              "type": "string",
+            },
+          },
+          {
+            "in": "header",
+            "name": "x-api-key",
+            "required": false,
+            "schema": {
+              "description": "A string representing the API key for the current request.",
               "type": "string",
             },
           },
@@ -30727,8 +30775,16 @@ Modifier extensions SHALL NOT change the meaning of any elements on Resource or 
             "name": "Correlation-Id",
             "required": true,
             "schema": {
-              "description": "A UUID, represented as a URI",
-              "pattern": "^urn:uuid:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+              "description": "A string representing the Correlation ID for the current request. This ID is used to correlate logs and other data across services.",
+              "type": "string",
+            },
+          },
+          {
+            "in": "header",
+            "name": "x-api-key",
+            "required": false,
+            "schema": {
+              "description": "A string representing the API key for the current request.",
               "type": "string",
             },
           },
@@ -34299,8 +34355,16 @@ Modifier extensions SHALL NOT change the meaning of any elements on Resource or 
             "name": "Correlation-Id",
             "required": true,
             "schema": {
-              "description": "A UUID, represented as a URI",
-              "pattern": "^urn:uuid:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+              "description": "A string representing the Correlation ID for the current request. This ID is used to correlate logs and other data across services.",
+              "type": "string",
+            },
+          },
+          {
+            "in": "header",
+            "name": "x-api-key",
+            "required": false,
+            "schema": {
+              "description": "A string representing the API key for the current request.",
               "type": "string",
             },
           },
@@ -37856,8 +37920,16 @@ Modifier extensions SHALL NOT change the meaning of any elements on Resource or 
             "name": "Correlation-Id",
             "required": true,
             "schema": {
-              "description": "A UUID, represented as a URI",
-              "pattern": "^urn:uuid:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+              "description": "A string representing the Correlation ID for the current request. This ID is used to correlate logs and other data across services.",
+              "type": "string",
+            },
+          },
+          {
+            "in": "header",
+            "name": "x-api-key",
+            "required": false,
+            "schema": {
+              "description": "A string representing the API key for the current request.",
               "type": "string",
             },
           },
@@ -40838,8 +40910,16 @@ Modifier extensions SHALL NOT change the meaning of any elements on Resource or 
             "name": "Correlation-Id",
             "required": true,
             "schema": {
-              "description": "A UUID, represented as a URI",
-              "pattern": "^urn:uuid:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+              "description": "A string representing the Correlation ID for the current request. This ID is used to correlate logs and other data across services.",
+              "type": "string",
+            },
+          },
+          {
+            "in": "header",
+            "name": "x-api-key",
+            "required": false,
+            "schema": {
+              "description": "A string representing the API key for the current request.",
               "type": "string",
             },
           },
@@ -46093,8 +46173,16 @@ Modifier extensions SHALL NOT change the meaning of any elements on Resource or 
             "name": "Correlation-Id",
             "required": true,
             "schema": {
-              "description": "A UUID, represented as a URI",
-              "pattern": "^urn:uuid:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+              "description": "A string representing the Correlation ID for the current request. This ID is used to correlate logs and other data across services.",
+              "type": "string",
+            },
+          },
+          {
+            "in": "header",
+            "name": "x-api-key",
+            "required": false,
+            "schema": {
+              "description": "A string representing the API key for the current request.",
               "type": "string",
             },
           },
