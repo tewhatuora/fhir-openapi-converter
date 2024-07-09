@@ -5,6 +5,7 @@ const {
   setGlobalHeaders,
 } = require('./parameters');
 const { getResponses } = require('./responses');
+const { OAS_SCHEMA_BASE_URL } = require('../constants');
 const { getExamples } = require('./examples');
 const { getRequestBody } = require('./requestBody');
 const { addOrUpdatePath } = require('../utils');
@@ -374,7 +375,7 @@ const buildPaths = async (config, capabilityStatement) => {
   const tags = new Set();
   for (const resource of serverRest?.resource ?? []) {
     const { resourcePaths, schemas, examples } =
-      await capabilityStatementRestResourceToPath(config, resource);
+      await capabilityStatementRestResourceToPath(config, resource, capabilityStatement);
     allSchemas.push(...schemas);
     examples && Object.assign(allExamples, examples);
     for (const [path, operations] of Object.entries(resourcePaths)) {
@@ -444,7 +445,37 @@ const systemLevelPaths = async (config, interactions, operations) => {
   return rootPaths;
 };
 
-const capabilityStatementRestResourceToPath = async (config, resource) => {
+const buildMetadataPath = async (config, capabilityStatement) => {
+  logger.debug('Building metadata path for CapabilityStatement');
+  return {
+    get: {
+      summary: 'Get CapabilityStatement',
+      description: 'Returns the FHIR CapabilityStatement for this server',
+      tags: ['metadata'],
+      operationId: 'getCapabilityStatement',
+      parameters: [...setGlobalHeaders(config)],
+      responses: {
+        200: {
+          description: 'Successful retrieval of the CapabilityStatement',
+          content: {
+            [config.contentType]: {
+              schema: {
+                $ref: `${OAS_SCHEMA_BASE_URL}CapabilityStatement-definition.json`,
+              },
+              examples: {
+                'CapabilityStatement': {
+                  value: capabilityStatement,
+                }
+              }
+            },
+          },
+        }
+      },
+    }
+  };
+};
+
+const capabilityStatementRestResourceToPath = async (config, resource, capabilityStatement) => {
   const { type, interaction, operation } = resource;
   logger.debug(
     `Building paths for ${type}. ${interaction?.length} interactions found. ${operation?.length} custom operations found.`
@@ -537,6 +568,9 @@ const capabilityStatementRestResourceToPath = async (config, resource) => {
       type
     );
   }
+
+  addOrUpdatePath(paths, '/metadata', await buildMetadataPath(config, capabilityStatement));
+
   if (Object.keys(customOperations).length > 0) {
     Object.entries(customOperations).forEach(([pathKey, operations]) => {
       addOrUpdatePath(paths, pathKey, operations);
