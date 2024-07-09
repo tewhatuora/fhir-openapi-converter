@@ -2,9 +2,12 @@ const OpenAPIParser = require('@readme/openapi-parser');
 const { generateOpenApiSpec } = require('./openApiGenerator');
 const { getFHIRArtifacts, writeOasFiles } = require('./utils');
 const { CAPABILITY_STATEMENT_URL } = require('./constants');
+const logger = require('./logger');
+const { name, version } = require('../package.json');
 
 const main = async (config) => {
   try {
+    logger.info('Using version:', {name, version});
     // Retrieve FHIR artifacts from the given sources (local or remote)
     const { capabilityStatements, packageDirectory, igFiles } =
       await getFHIRArtifacts(config);
