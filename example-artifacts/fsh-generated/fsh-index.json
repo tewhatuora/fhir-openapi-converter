@@ -5,7 +5,7 @@
     "fshType": "Instance",
     "fshFile": "ExampleCapabilityStatement.fsh",
     "startLine": 1,
-    "endLine": 81
+    "endLine": 88
   },
   {
     "outputFile": "OperationDefinition-ExampleOperationModeOperationDefinition.json",
@@ -38,6 +38,14 @@
     "fshFile": "ExamplePatient.fsh",
     "startLine": 20,
     "endLine": 27
+  },
+  {
+    "outputFile": "StructureDefinition-example-encounter.json",
+    "fshName": "ExampleEncounterProfile",
+    "fshType": "Profile",
+    "fshFile": "ExampleEncounter.fsh",
+    "startLine": 1,
+    "endLine": 6
   },
   {
     "outputFile": "StructureDefinition-example-patient-2.json",

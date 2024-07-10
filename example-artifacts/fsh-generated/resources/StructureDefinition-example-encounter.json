@@ -1,0 +1,23 @@
+{
+  "resourceType": "StructureDefinition",
+  "id": "example-encounter",
+  "url": "https://example.com/StructureDefinition/example-encounter",
+  "name": "ExampleEncounterProfile",
+  "title": "Example Encounter Profile",
+  "status": "active",
+  "fhirVersion": "4.0.1",
+  "kind": "resource",
+  "abstract": false,
+  "type": "Encounter",
+  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Encounter",
+  "derivation": "constraint",
+  "differential": {
+    "element": [
+      {
+        "id": "Encounter.serviceType",
+        "path": "Encounter.serviceType",
+        "max": "0"
+      }
+    ]
+  }
+}

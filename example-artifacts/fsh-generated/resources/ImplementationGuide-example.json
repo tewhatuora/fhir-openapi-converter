@@ -35,6 +35,13 @@
     "resource": [
       {
         "reference": {
+          "reference": "StructureDefinition/example-encounter"
+        },
+        "name": "Example Encounter Profile",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
           "reference": "StructureDefinition/example-patient"
         },
         "name": "Example Patient Profile",
@@ -52,7 +59,7 @@
           "reference": "CapabilityStatement/ExampleCapabilityStatement"
         },
         "name": "ExampleCapabilityStatement",
-        "description": "FHIR API for Patients",
+        "description": "FHIR API for an Example",
         "exampleBoolean": false
       },
       {

@@ -8,11 +8,11 @@ Usage: #definition
 * fhirVersion = #4.0.1
 * version = "1.1.0"
 * format = #json
-* implementation.description = "Patient FHIR API"
+* implementation.description = "Example FHIR API"
 * implementation.url = "https://example.digital.health.nz/fhir/R4"
 * implementationGuide = "https://build.fhir.org/ig/tewhatuora/fhir-example"
 * publisher = "Te Whatu Ora Health New Zealand"
-* description = "FHIR API for Patients"
+* description = "FHIR API for an Example"
 * rest.mode = #server
 
 * contact.name = "Example Contact Details"
@@ -56,13 +56,14 @@ Usage: #definition
 * rest.operation[=].definition = Canonical(ExampleSystemOperationDefinition)
 
 // Patient resource
+// defined custom profile and supported profile
 * rest.resource[+].type = #Patient
+* rest.resource[=].supportedProfile[+] = Canonical(ExamplePatientProfile)
+* rest.resource[=].supportedProfile[+] = Canonical(ExamplePatientProfile2)
 * rest.resource[=].operation[+].name = "summary"
 * rest.resource[=].operation[=].definition = Canonical(ExampleQueryOperationDefinition)
 * rest.resource[=].operation[+].name = "match"
 * rest.resource[=].operation[=].definition = Canonical(ExampleOperationModeOperationDefinition)
-* rest.resource[=].profile = Canonical(ExamplePatientProfile)
-* rest.resource[=].supportedProfile[+] = Canonical(ExamplePatientProfile2)
 * rest.resource[=].interaction[+].code = #read
 * rest.resource[=].interaction[+].code = #search-type
 * rest.resource[=].interaction[+].code = #create
@@ -74,8 +75,14 @@ Usage: #definition
 * rest.resource[=].searchParam[=].type = #reference
 * rest.resource[=].searchParam[=].documentation = "Patient's nominated general practitioner, not the organization that manages the record"
 
+// Condition resource
+// Case 1: no profile or supportedProfile defined: Will generate base R4 schema
+* rest.resource[+].type = #Condition
+* rest.resource[=].interaction[+].code = #read
+
 // Encounter resource
+// Case 2: supportedProfile defined: Will only generate ExampleEncounterProfile
 * rest.resource[+].type = #Encounter
-* rest.resource[=].profile = Canonical(Encounter)
+* rest.resource[=].supportedProfile[+] = Canonical(ExampleEncounterProfile)
 * rest.resource[=].interaction[+].code = #read
 * rest.resource[=].interaction[+].code = #vread

@@ -85,14 +85,14 @@
     "json"
   ],
   "implementation": {
-    "description": "Patient FHIR API",
+    "description": "Example FHIR API",
     "url": "https://example.digital.health.nz/fhir/R4"
   },
   "implementationGuide": [
     "https://build.fhir.org/ig/tewhatuora/fhir-example"
   ],
   "publisher": "Te Whatu Ora Health New Zealand",
-  "description": "FHIR API for Patients",
+  "description": "FHIR API for an Example",
   "rest": [
     {
       "mode": "server",
@@ -154,6 +154,10 @@
       "resource": [
         {
           "type": "Patient",
+          "supportedProfile": [
+            "https://example.com/StructureDefinition/example-patient",
+            "https://example.com/StructureDefinition/example-patient-2"
+          ],
           "operation": [
             {
               "name": "summary",
@@ -163,10 +167,6 @@
               "name": "match",
               "definition": "https://example.com/OperationDefinition/ExampleOperationModeOperationDefinition"
             }
-          ],
-          "profile": "https://example.com/StructureDefinition/example-patient",
-          "supportedProfile": [
-            "https://example.com/StructureDefinition/example-patient-2"
           ],
           "interaction": [
             {
@@ -196,8 +196,18 @@
           ]
         },
         {
+          "type": "Condition",
+          "interaction": [
+            {
+              "code": "read"
+            }
+          ]
+        },
+        {
           "type": "Encounter",
-          "profile": "http://hl7.org/fhir/StructureDefinition/Encounter",
+          "supportedProfile": [
+            "https://example.com/StructureDefinition/example-encounter"
+          ],
           "interaction": [
             {
               "code": "read"
