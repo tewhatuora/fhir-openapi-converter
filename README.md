@@ -83,6 +83,10 @@ The `example-artifacts` directory contains an example, minimal Implementation Gu
 
 To compile the FSH files in the `example-artifacts/input` folder, run `sushi example-artifacts`. This will update the output files in the `example-artifacts/fsh-generated` folder. To run the tool using these artifacts, run `./src/cli.js --inputFolder ./example-artifacts`
 
+Once compiled, `yarn dev` can be used to run the tool in development.
+
+To render the generated output in a Swagger UI, you can run `yarn view`. This will reload on changes to the output files.
+
 ## Releases
 
 Prerelease command:
