@@ -5,3 +5,4 @@ testoutput*
 report.html
 dist*
 .yarn/install-state.gz
+.yarn/install-state.gz
