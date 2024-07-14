@@ -1,0 +1,223 @@
+{
+  "resourceType": "CapabilityStatement",
+  "id": "ExampleCapabilityStatementSMART",
+  "meta": {
+    "profile": [
+      "https://fhir-ig.digital.health.nz/hnz-digital-tooling/StructureDefinition/hnz-capability-statement"
+    ]
+  },
+  "url": "https://example.com/CapabilityStatement/ExampleCapabilityStatementSMART",
+  "extension": [
+    {
+      "url": "https://fhir-ig.digital.health.nz/hnz-digital-tooling/StructureDefinition/resource-metadata-extension",
+      "extension": [
+        {
+          "url": "licenseURL",
+          "valueUri": "https://example.license.org"
+        },
+        {
+          "url": "externalDocs",
+          "valueUri": "https://docs.example.com/fhir"
+        },
+        {
+          "url": "licenseName",
+          "valueString": "GPLv3"
+        },
+        {
+          "extension": [
+            {
+              "url": "https://fhir-ig.digital.health.nz/hnz-digital-tooling/StructureDefinition/custom-headers-extension",
+              "extension": [
+                {
+                  "url": "key",
+                  "valueString": "Correlation-Id"
+                },
+                {
+                  "url": "value",
+                  "valueUri": "https://raw.githubusercontent.com/tewhatuora/schemas/main/shared-care/Correlation-Id.json"
+                },
+                {
+                  "url": "required",
+                  "valueBoolean": true
+                }
+              ]
+            },
+            {
+              "extension": [
+                {
+                  "url": "key",
+                  "valueString": "x-api-key"
+                },
+                {
+                  "url": "value",
+                  "valueUri": "https://raw.githubusercontent.com/tewhatuora/schemas/main/shared-care/Api-Key.json"
+                },
+                {
+                  "url": "required",
+                  "valueBoolean": false
+                }
+              ],
+              "url": "https://fhir-ig.digital.health.nz/hnz-digital-tooling/StructureDefinition/custom-headers-extension"
+            }
+          ],
+          "url": "globalHeaders"
+        }
+      ]
+    }
+  ],
+  "contact": [
+    {
+      "telecom": [
+        {
+          "system": "url",
+          "value": "https://example.com"
+        }
+      ],
+      "name": "Example Contact Details"
+    }
+  ],
+  "status": "draft",
+  "date": "2024-04-18",
+  "kind": "instance",
+  "fhirVersion": "4.0.1",
+  "version": "1.1.0",
+  "format": [
+    "json"
+  ],
+  "implementation": {
+    "description": "Example FHIR API",
+    "url": "https://example.digital.health.nz/fhir/R4"
+  },
+  "implementationGuide": [
+    "https://build.fhir.org/ig/tewhatuora/fhir-example"
+  ],
+  "publisher": "Te Whatu Ora Health New Zealand",
+  "description": "FHIR API for an Example",
+  "rest": [
+    {
+      "mode": "server",
+      "documentation": "Details the FHIR Server API for Patients. This API allows for the creation, retrieval and searching of Patient resources.",
+      "security": {
+        "description": "Details security requirements are detailed at [security](./security.html).",
+        "cors": false,
+        "service": [
+          {
+            "coding": [
+              {
+                "code": "SMART-on-FHIR"
+              }
+            ]
+          }
+        ],
+        "extension": [
+          {
+            "url": "http://fhir-registry.smarthealthit.org/StructureDefinition/oauth-uris",
+            "extension": [
+              {
+                "url": "token",
+                "valueUri": "https://auth.example.com/oauth2/token"
+              },
+              {
+                "url": "authorize",
+                "valueUri": "https://auth.example.com/oauth2/authorize"
+              }
+            ]
+          },
+          {
+            "url": "http://fhir-registry.smarthealthit.org/StructureDefinition/capabilities",
+            "valueCode": "client-confidential-symmetric"
+          },
+          {
+            "url": "http://fhir-registry.smarthealthit.org/StructureDefinition/capabilities",
+            "valueCode": "permission-user"
+          },
+          {
+            "url": "http://fhir-registry.smarthealthit.org/StructureDefinition/capabilities",
+            "valueCode": "permission-patient"
+          }
+        ]
+      },
+      "interaction": [
+        {
+          "code": "transaction"
+        },
+        {
+          "code": "batch"
+        }
+      ],
+      "operation": [
+        {
+          "name": "summary",
+          "definition": "https://example.com/OperationDefinition/ExampleSystemOperationDefinition"
+        }
+      ],
+      "resource": [
+        {
+          "type": "Patient",
+          "supportedProfile": [
+            "https://example.com/StructureDefinition/example-patient",
+            "https://example.com/StructureDefinition/example-patient-2"
+          ],
+          "operation": [
+            {
+              "name": "summary",
+              "definition": "https://example.com/OperationDefinition/ExampleQueryOperationDefinition"
+            },
+            {
+              "name": "match",
+              "definition": "https://example.com/OperationDefinition/ExampleOperationModeOperationDefinition"
+            }
+          ],
+          "interaction": [
+            {
+              "code": "read"
+            },
+            {
+              "code": "search-type"
+            },
+            {
+              "code": "create"
+            },
+            {
+              "code": "update"
+            },
+            {
+              "code": "delete"
+            }
+          ],
+          "versioning": "versioned",
+          "searchParam": [
+            {
+              "name": "general-practitioner",
+              "definition": "http://hl7.org/fhir/SearchParameter/Patient-general-practitioner",
+              "type": "reference",
+              "documentation": "Patient's nominated general practitioner, not the organization that manages the record"
+            }
+          ]
+        },
+        {
+          "type": "Condition",
+          "interaction": [
+            {
+              "code": "read"
+            }
+          ]
+        },
+        {
+          "type": "Encounter",
+          "supportedProfile": [
+            "https://example.com/StructureDefinition/example-encounter"
+          ],
+          "interaction": [
+            {
+              "code": "read"
+            },
+            {
+              "code": "vread"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

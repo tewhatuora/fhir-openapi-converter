@@ -1,7 +1,8 @@
 [ExampleEncounterProfile]: StructureDefinition-example-encounter.html
 [ExamplePatientProfile]: StructureDefinition-example-patient.html
 [ExamplePatientProfile2]: StructureDefinition-example-patient-2.html
-[ExampleCapabilityStatement]: CapabilityStatement-ExampleCapabilityStatement.html
+[ExampleCapabilityStatementOauth]: CapabilityStatement-ExampleCapabilityStatementOauth.html
+[ExampleCapabilityStatementSMART]: CapabilityStatement-ExampleCapabilityStatementSMART.html
 [example-patient-instance]: Patient-example-patient-instance.html
 [ExampleOperationModeOperationDefinition]: OperationDefinition-ExampleOperationModeOperationDefinition.html
 [ExampleQueryOperationDefinition]: OperationDefinition-ExampleQueryOperationDefinition.html

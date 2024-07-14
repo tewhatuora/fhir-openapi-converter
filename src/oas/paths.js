@@ -49,8 +49,13 @@ const buildReadPath = async (
                 serverResource.type,
                 config.smartFeatures,
                 'r'
-              ).map(scope => ({ smartOnFhir: [scope] }))
-          }
+              ).map((scope) => ({ smartOnFhir: [scope] })),
+            }
+          : {}),
+        ...(config.securitySchemes?.OAuth
+          ? {
+              security: [{ OAuth: [config.defaultOAuthScope] }],
+            }
           : {}),
       },
     },
@@ -93,8 +98,13 @@ const buildVersionedReadPath = async (
                 serverResource.type,
                 config.smartFeatures,
                 'r'
-              ).map(scope => ({ smartOnFhir: [scope] }))
-          }
+              ).map((scope) => ({ smartOnFhir: [scope] })),
+            }
+          : {}),
+        ...(config.securitySchemes?.OAuth
+          ? {
+              security: [{ OAuth: [config.defaultOAuthScope] }],
+            }
           : {}),
       },
     },
@@ -139,8 +149,13 @@ const buildCreatePath = async (
                 serverResource.type,
                 config.smartFeatures,
                 'c'
-              ).map(scope => ({ smartOnFhir: [scope] }))
-          }
+              ).map((scope) => ({ smartOnFhir: [scope] })),
+            }
+          : {}),
+        ...(config.securitySchemes?.OAuth
+          ? {
+              security: [{ OAuth: [config.defaultOAuthScope] }],
+            }
           : {}),
       },
     },
@@ -188,8 +203,13 @@ const buildPatchPath = async (
                 serverResource.type,
                 config.smartFeatures,
                 'u'
-              ).map(scope => ({ smartOnFhir: [scope] }))
-          }
+              ).map((scope) => ({ smartOnFhir: [scope] })),
+            }
+          : {}),
+        ...(config.securitySchemes?.OAuth
+          ? {
+              security: [{ OAuth: [config.defaultOAuthScope] }],
+            }
           : {}),
       },
     },
@@ -228,8 +248,13 @@ const buildSearchPath = async (
                 serverResource.type,
                 config.smartFeatures,
                 's'
-              ).map(scope => ({ smartOnFhir: [scope] }))
-          }
+              ).map((scope) => ({ smartOnFhir: [scope] })),
+            }
+          : {}),
+        ...(config.securitySchemes?.OAuth
+          ? {
+              security: [{ OAuth: [config.defaultOAuthScope] }],
+            }
           : {}),
       },
     },
@@ -277,8 +302,13 @@ const buildUpdatePath = async (
                 serverResource.type,
                 config.smartFeatures,
                 'u'
-              ).map(scope => ({ smartOnFhir: [scope] }))
-          }
+              ).map((scope) => ({ smartOnFhir: [scope] })),
+            }
+          : {}),
+        ...(config.securitySchemes?.OAuth
+          ? {
+              security: [{ OAuth: [config.defaultOAuthScope] }],
+            }
           : {}),
       },
     },
@@ -320,8 +350,13 @@ const buildDeletePath = async (
                 serverResource.type,
                 config.smartFeatures,
                 'd'
-              ).map(scope => ({ smartOnFhir: [scope] }))
-          }
+              ).map((scope) => ({ smartOnFhir: [scope] })),
+            }
+          : {}),
+        ...(config.securitySchemes?.OAuth
+          ? {
+              security: [{ OAuth: [config.defaultOAuthScope] }],
+            }
           : {}),
       },
     },
@@ -347,7 +382,11 @@ const buildPaths = async (config, capabilityStatement) => {
   const tags = new Set();
   for (const resource of serverRest?.resource ?? []) {
     const { resourcePaths, schemas, examples } =
-      await capabilityStatementRestResourceToPath(config, resource, capabilityStatement);
+      await capabilityStatementRestResourceToPath(
+        config,
+        resource,
+        capabilityStatement
+      );
     allSchemas.push(...schemas);
     examples && Object.assign(allExamples, examples);
     for (const [path, operations] of Object.entries(resourcePaths)) {
@@ -435,19 +474,23 @@ const buildMetadataPath = async (config, capabilityStatement) => {
                 $ref: `${OAS_SCHEMA_BASE_URL}CapabilityStatement-definition.json`,
               },
               examples: {
-                'CapabilityStatement': {
+                CapabilityStatement: {
                   value: capabilityStatement,
-                }
-              }
+                },
+              },
             },
           },
-        }
+        },
       },
-    }
+    },
   };
 };
 
-const capabilityStatementRestResourceToPath = async (config, resource, capabilityStatement) => {
+const capabilityStatementRestResourceToPath = async (
+  config,
+  resource,
+  capabilityStatement
+) => {
   const { type, interaction, operation } = resource;
   logger.debug(
     `Building paths for ${type}. ${interaction?.length} interactions found. ${operation?.length} custom operations found.`
@@ -541,7 +584,11 @@ const capabilityStatementRestResourceToPath = async (config, resource, capabilit
     );
   }
 
-  addOrUpdatePath(paths, '/metadata', await buildMetadataPath(config, capabilityStatement));
+  addOrUpdatePath(
+    paths,
+    '/metadata',
+    await buildMetadataPath(config, capabilityStatement)
+  );
 
   if (Object.keys(customOperations).length > 0) {
     Object.entries(customOperations).forEach(([pathKey, operations]) => {

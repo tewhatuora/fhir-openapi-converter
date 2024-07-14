@@ -46,10 +46,10 @@ const extractCustomExtensions = (capabilityStatement) => {
 
   logger.debug(
     'Custom globalHeaders found:',
-    globalHeaders ? {globalHeaders} : 'none'
+    globalHeaders ? { globalHeaders } : 'none'
   );
-  logger.debug('licenseName:', {licenseName});
-  logger.debug('externalDocs:', {externalDocs});
+  logger.debug('licenseName:', { licenseName });
+  logger.debug('externalDocs:', { externalDocs });
 
   return {
     licenseURL,

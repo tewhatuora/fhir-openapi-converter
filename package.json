@@ -8,7 +8,7 @@
   },
   "scripts": {
     "build": "webpack --mode production",
-    "dev": "./src/cli.js --inputFolder ./example-artifacts",
+    "dev": "./src/cli.js --inputFolder ./example-artifacts --defaultOAuthScope scope/example",
     "view": "nodemon server.js",
     "fsh": "sushi example-artifacts",
     "lint": "eslint .",

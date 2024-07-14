@@ -3,13 +3,12 @@ const { main } = require('../src/main');
 const { getTestConfig } = require('./utils');
 
 describe('e2e tool tests using example-artifacts', () => {
-  let oas;
+  let apiSpec;
   beforeAll(async () => {
-    const apiSpec = await main(getTestConfig());
-    oas = await OpenAPIParser.parse(apiSpec);
+    apiSpec = await main(getTestConfig());
   });
 
-  test('should generate a consistent JSON file', async () => {
-    expect(oas).toMatchSnapshot();
+  test('should generate a consistent JSON files', async () => {
+    expect(apiSpec).toMatchSnapshot();
   });
 });

@@ -77,7 +77,7 @@ const addOrUpdatePath = (paths, pathKey, operations) => {
  * @returns {Promise<Array>} - An array of processed JSON objects that match the filter.
  */
 async function walkAndProcess(directory) {
-  logger.debug('Reading directory json files:', {directory});
+  logger.debug('Reading directory json files:', { directory });
   const entries = {
     CapabilityStatements: [],
     examples: {},

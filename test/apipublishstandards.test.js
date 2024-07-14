@@ -6,7 +6,12 @@ describe('OpenAPI HNZ Publishing Standards Tests', () => {
   let oas;
   beforeAll(async () => {
     const apiSpec = await main(getTestConfig());
-    oas = await OpenAPIParser.parse(apiSpec);
+    oas = await OpenAPIParser.parse(
+      apiSpec.find(
+        (spec) =>
+          spec['x-capabilitystatement-id'] === 'ExampleCapabilityStatementSMART'
+      )
+    );
   });
 
   describe('General Requirements', () => {

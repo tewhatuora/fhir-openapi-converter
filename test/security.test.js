@@ -28,7 +28,9 @@ describe('Security', () => {
       utils.getFHIRArtifacts.mockImplementationOnce(async () => {
         const modifiedArtifacts = await originalGetFHIRArtifacts(config);
         const originalCapabilityStatement =
-          modifiedArtifacts.capabilityStatements[0];
+          modifiedArtifacts.capabilityStatements.find(
+            (capstmt) => capstmt['id'] === 'ExampleCapabilityStatementSMART'
+          );
         originalCapabilityStatement.rest[0].security = getSmartSystemSecurity([
           'client-confidential-symmetric',
         ]);
@@ -37,7 +39,13 @@ describe('Security', () => {
       });
 
       const apiSpec = await main(config);
-      const oas = await OpenAPIParser.parse(apiSpec);
+      const oas = await OpenAPIParser.parse(
+        apiSpec.find(
+          (spec) =>
+            spec['x-capabilitystatement-id'] ===
+            'ExampleCapabilityStatementSMART'
+        )
+      );
 
       expect(oas.components.securitySchemes.smartOnFhir.type).toEqual('oauth2');
       expect(oas.components.securitySchemes.smartOnFhir.description).toEqual(
@@ -85,7 +93,9 @@ describe('Security', () => {
       utils.getFHIRArtifacts.mockImplementationOnce(async () => {
         const modifiedArtifacts = await originalGetFHIRArtifacts(config);
         const originalCapabilityStatement =
-          modifiedArtifacts.capabilityStatements[0];
+          modifiedArtifacts.capabilityStatements.find(
+            (capstmt) => capstmt['id'] === 'ExampleCapabilityStatementSMART'
+          );
         originalCapabilityStatement.rest[0].security = getSmartSystemSecurity([
           'client-confidential-symmetric',
         ]);
@@ -94,7 +104,13 @@ describe('Security', () => {
       });
 
       const apiSpec = await main(config);
-      const oas = await OpenAPIParser.parse(apiSpec);
+      const oas = await OpenAPIParser.parse(
+        apiSpec.find(
+          (spec) =>
+            spec['x-capabilitystatement-id'] ===
+            'ExampleCapabilityStatementSMART'
+        )
+      );
 
       expect(oas.components.securitySchemes.smartOnFhir.type).toEqual('oauth2');
       expect(oas.components.securitySchemes.smartOnFhir.description).toEqual(
@@ -122,7 +138,9 @@ describe('Security', () => {
       utils.getFHIRArtifacts.mockImplementationOnce(async () => {
         const modifiedArtifacts = await originalGetFHIRArtifacts(config);
         const originalCapabilityStatement =
-          modifiedArtifacts.capabilityStatements[0];
+          modifiedArtifacts.capabilityStatements.find(
+            (capstmt) => capstmt['id'] === 'ExampleCapabilityStatementSMART'
+          );
         originalCapabilityStatement.rest[0].security = getSmartUserSecurity([
           'permission-user',
         ]);
@@ -131,7 +149,13 @@ describe('Security', () => {
       });
 
       const apiSpec = await main(config);
-      const oas = await OpenAPIParser.parse(apiSpec);
+      const oas = await OpenAPIParser.parse(
+        apiSpec.find(
+          (spec) =>
+            spec['x-capabilitystatement-id'] ===
+            'ExampleCapabilityStatementSMART'
+        )
+      );
 
       expect(oas.components.securitySchemes.smartOnFhir.type).toEqual('oauth2');
       expect(oas.components.securitySchemes.smartOnFhir.description).toEqual(
@@ -177,7 +201,9 @@ describe('Security', () => {
       utils.getFHIRArtifacts.mockImplementationOnce(async () => {
         const modifiedArtifacts = await originalGetFHIRArtifacts(config);
         const originalCapabilityStatement =
-          modifiedArtifacts.capabilityStatements[0];
+          modifiedArtifacts.capabilityStatements.find(
+            (capstmt) => capstmt['id'] === 'ExampleCapabilityStatementSMART'
+          );
         originalCapabilityStatement.rest[0].security = getSmartUserSecurity([
           'permission-patient',
         ]);
@@ -186,7 +212,13 @@ describe('Security', () => {
       });
 
       const apiSpec = await main(config);
-      const oas = await OpenAPIParser.parse(apiSpec);
+      const oas = await OpenAPIParser.parse(
+        apiSpec.find(
+          (spec) =>
+            spec['x-capabilitystatement-id'] ===
+            'ExampleCapabilityStatementSMART'
+        )
+      );
 
       expect(oas.components.securitySchemes.smartOnFhir.type).toEqual('oauth2');
       expect(oas.components.securitySchemes.smartOnFhir.description).toEqual(
@@ -233,22 +265,28 @@ describe('Security', () => {
 
   describe('oAuth', () => {
     test('oAuth', async () => {
-      utils.getFHIRArtifacts.mockImplementationOnce(async () => {
-        const modifiedArtifacts = await originalGetFHIRArtifacts(config);
-        const originalCapabilityStatement =
-          modifiedArtifacts.capabilityStatements[0];
-        originalCapabilityStatement.rest[0].security = getOauthSecurity();
-        modifiedArtifacts.capabilityStatements[0] = originalCapabilityStatement;
-        return modifiedArtifacts;
-      });
-
       const apiSpec = await main(config);
-      const oas = await OpenAPIParser.parse(apiSpec);
+      const oas = await OpenAPIParser.parse(
+        apiSpec.find(
+          (spec) =>
+            spec['x-capabilitystatement-id'] ===
+            'ExampleCapabilityStatementOauth'
+        )
+      );
 
       expect(oas.components.securitySchemes.OAuth.type).toEqual('oauth2');
       expect(oas.components.securitySchemes.OAuth.description).toEqual(
         'OAuth security scheme'
       );
+      expect(
+        Object.keys(oas.components.securitySchemes.OAuth.flows).length
+      ).toEqual(2);
+      expect(
+        oas.components.securitySchemes.OAuth.flows.clientCredentials
+      ).toBeDefined();
+      const { scopes } =
+        oas.components.securitySchemes.OAuth.flows.clientCredentials;
+      expect(Object.keys(scopes)).toEqual(['scope/example']);
     });
   });
 });

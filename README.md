@@ -74,6 +74,7 @@ The following table lists the configurable command line options for the Converte
 | `contentType`         | `ct`  | `string`  | Content type of the API responses                                                                                                                                                                                                                       | `application/json` |
 | `defaultResponses`    | `dt`  | `string`  | Comma separated string of response codes where an OperationOutcome is generated in the specification                                                                                                                                                    | 400,401,403,500    |
 | `dereferenceOutput`   |       | `boolean` | Whether or not to fully deference the output specification                                                                                                                                                                                              | `true`             |
+| `defaultOAuthScope`   |       | `string`  | When OAuth security is used (as opposed to SMART), this setting defined a single scope for ALL paths and operations                                                                                                                                     | none               |
 
 The `inputFolder` option is mutually exclusive with the `remoteUrl` option. Only one of these should be provided at a time. Either `inputFolder` or `remoteUrl` must be provided.
 

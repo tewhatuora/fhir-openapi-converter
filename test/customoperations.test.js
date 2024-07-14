@@ -1,13 +1,18 @@
 const OpenAPIParser = require('@readme/openapi-parser');
 const { main } = require('../src/main');
 const { getTestConfig } = require('./utils');
-const capabilitySeedData = require('../example-artifacts/fsh-generated/resources/CapabilityStatement-ExampleCapabilityStatement.json');
+const capabilitySeedData = require('../example-artifacts/fsh-generated/resources/CapabilityStatement-ExampleCapabilityStatementSMART.json');
 
 describe('Custom operations', () => {
   let oas;
   beforeAll(async () => {
     const apiSpec = await main(getTestConfig());
-    oas = await OpenAPIParser.parse(apiSpec);
+    oas = await OpenAPIParser.parse(
+      apiSpec.find(
+        (spec) =>
+          spec['x-capabilitystatement-id'] === 'ExampleCapabilityStatementSMART'
+      )
+    );
   });
 
   test('custom query type operation for system should create a GET /$custom-operation path', async () => {

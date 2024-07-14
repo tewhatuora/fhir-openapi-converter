@@ -26,6 +26,8 @@ const generateOpenApiSpec = async (config, capabilityStatement) => {
   );
   const oas = {
     openapi: '3.0.3',
+    'x-capabilitystatement-url': capabilityStatement.url,
+    'x-capabilitystatement-id': capabilityStatement.id,
     info: {
       version: capabilityStatement.version,
       title: capabilityStatement.description,
@@ -93,7 +95,18 @@ const generateOpenApiSpec = async (config, capabilityStatement) => {
           )
         );
     }
-
+    if (oas.components?.securitySchemes?.OAuth?.flows?.clientCredentials) {
+      oas.components.securitySchemes.OAuth.flows.clientCredentials.scopes = {
+        [config.defaultOAuthScope]:
+          'Default scope for all paths and operations',
+      };
+    }
+    if (oas.components?.securitySchemes?.OAuth?.flows?.authorizationCode) {
+      oas.components.securitySchemes.OAuth.flows.authorizationCode.scopes = {
+        [config.defaultOAuthScope]:
+          'Default scope for all paths and operations',
+      };
+    }
     const allScopes = [];
     Object.keys(oas.components.securitySchemes).forEach((key) => {
       const scheme = oas.components.securitySchemes[key];
@@ -108,12 +121,14 @@ const generateOpenApiSpec = async (config, capabilityStatement) => {
     const uniqueScopesArray = [...new Set(allScopes)];
     if (oas.paths?.['/'].post) {
       const securitySchemesKeys = Object.keys(oas.components.securitySchemes);
-      oas.paths['/'].post.security = uniqueScopesArray.map(scope => {
-        return securitySchemesKeys.reduce((acc, key) => {
-          acc.push({ [key]: [scope] });
-          return acc;
-        }, []);
-      }).flat();
+      oas.paths['/'].post.security = uniqueScopesArray
+        .map((scope) => {
+          return securitySchemesKeys.reduce((acc, key) => {
+            acc.push({ [key]: [scope] });
+            return acc;
+          }, []);
+        })
+        .flat();
     }
   }
 

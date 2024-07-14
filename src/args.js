@@ -25,6 +25,12 @@ const getArgs = () => {
         'Remote URL to download the FHIR Implementation Guide package. Example: --remoteUrl https://build.fhir.org/ig/tewhatuora/fhir-auditevents/package.tgz',
       demandOption: false,
     })
+    .option('defaultOAuthScope', {
+      type: 'string',
+      description:
+        'When OAuth security is used (as opposed to SMART), this setting defined a single scope for ALL paths and operations',
+      demandOption: false,
+    })
     .option('remoteDependencyUrl', {
       alias: 'd',
       type: 'array',

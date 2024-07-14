@@ -20,7 +20,12 @@ describe('Custom HTTP Headers', () => {
 
   test('should add custom headers to all operations', async () => {
     const apiSpec = await main(config);
-    const oas = await OpenAPIParser.parse(apiSpec);
+    const oas = await OpenAPIParser.parse(
+      apiSpec.find(
+        (spec) =>
+          spec['x-capabilitystatement-id'] === 'ExampleCapabilityStatementSMART'
+      )
+    );
     Object.keys(oas.paths).forEach((path) => {
       Object.keys(oas.paths[path]).forEach((method) => {
         const operation = oas.paths[path][method];
@@ -38,7 +43,7 @@ describe('Custom HTTP Headers', () => {
 
   test('should respect the custom headers required annotation', async () => {
     // return a Request-Context header that is not required
-    utils.getFHIRArtifacts.mockImplementationOnce(() =>
+    utils.getFHIRArtifacts.mockImplementation(() =>
       updateCustomHeaders(
         originalGetFHIRArtifacts,
         config,
@@ -47,7 +52,12 @@ describe('Custom HTTP Headers', () => {
       )
     );
     const apiSpec = await main(config);
-    const oas = await OpenAPIParser.parse(apiSpec);
+    const oas = await OpenAPIParser.parse(
+      apiSpec.find(
+        (spec) =>
+          spec['x-capabilitystatement-id'] === 'ExampleCapabilityStatementSMART'
+      )
+    );
     Object.keys(oas.paths).forEach((path) => {
       Object.keys(oas.paths[path]).forEach((method) => {
         const operation = oas.paths[path][method];

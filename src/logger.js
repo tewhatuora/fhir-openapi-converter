@@ -9,7 +9,7 @@ const logger = winston.createLogger({
     winston.format.json(),
     winston.format.timestamp({
       format: 'YYYY-MM-DD HH:mm:ss',
-    }),
+    })
   ),
   transports: [
     new winston.transports.Console({

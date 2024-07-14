@@ -26,7 +26,7 @@
   "dependsOn": [
     {
       "packageId": "tewhatuora.digitaltooling",
-      "version": "0.0.6",
+      "version": "0.0.7",
       "uri": "https://fhir-ig.digital.health.nz/hnz-digital-tooling/ImplementationGuide/tewhatuora.digitaltooling",
       "id": "tewhatuora_digitaltooling"
     }
@@ -56,9 +56,17 @@
       },
       {
         "reference": {
-          "reference": "CapabilityStatement/ExampleCapabilityStatement"
+          "reference": "CapabilityStatement/ExampleCapabilityStatementOauth"
         },
-        "name": "ExampleCapabilityStatement",
+        "name": "ExampleCapabilityStatementOauth",
+        "description": "FHIR API for an Example",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "CapabilityStatement/ExampleCapabilityStatementSMART"
+        },
+        "name": "ExampleCapabilityStatementSMART",
         "description": "FHIR API for an Example",
         "exampleBoolean": false
       },

@@ -69,6 +69,11 @@ const getOperationConfig = (
           security: [{ smartOnFhir: [operationDefinition.url] }],
         }
       : {}),
+    ...(config.securitySchemes?.OAuth
+      ? {
+          security: [{ OAuth: [config.defaultOAuthScope] }],
+        }
+      : {}),
   };
 
   return operationDefinition.kind === 'operation'

@@ -1,9 +1,17 @@
 [
   {
-    "outputFile": "CapabilityStatement-ExampleCapabilityStatement.json",
-    "fshName": "ExampleCapabilityStatement",
+    "outputFile": "CapabilityStatement-ExampleCapabilityStatementOauth.json",
+    "fshName": "ExampleCapabilityStatementOauth",
     "fshType": "Instance",
-    "fshFile": "ExampleCapabilityStatement.fsh",
+    "fshFile": "ExampleCapabilityStatementOAuth.fsh",
+    "startLine": 1,
+    "endLine": 82
+  },
+  {
+    "outputFile": "CapabilityStatement-ExampleCapabilityStatementSMART.json",
+    "fshName": "ExampleCapabilityStatementSMART",
+    "fshType": "Instance",
+    "fshFile": "ExampleCapabilityStatementSMART.fsh",
     "startLine": 1,
     "endLine": 88
   },

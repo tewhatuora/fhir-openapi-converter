@@ -7,7 +7,7 @@ const { name, version } = require('../package.json');
 
 const main = async (config) => {
   try {
-    logger.info('Using version:', {name, version});
+    logger.info('Using version:', { name, version });
     // Retrieve FHIR artifacts from the given sources (local or remote)
     const { capabilityStatements, packageDirectory, igFiles } =
       await getFHIRArtifacts(config);
@@ -18,6 +18,7 @@ const main = async (config) => {
     }
 
     // Generate an OpenAPI specification for each CapabilityStatement and write to files
+    const generatedOas = [];
     for (const capabilityStatement of capabilityStatements) {
       const oas = await generateOpenApiSpec(
         { ...config, packageDirectory, igFiles },
@@ -26,8 +27,9 @@ const main = async (config) => {
       await writeOasFiles(config, oas, capabilityStatement);
       // Validate the output is a valid OpenAPI specification
       await OpenAPIParser.validate(oas);
-      return oas;
+      generatedOas.push(oas);
     }
+    return generatedOas;
   } catch (error) {
     throw error;
   }

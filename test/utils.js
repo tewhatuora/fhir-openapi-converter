@@ -16,8 +16,10 @@ const runCliTool = (opts) => {
 const getTestConfig = () => {
   const inputFolder = `./example-artifacts`;
   const defaultResponses = '400,401,403,500';
+  const defaultOAuthScope = 'scope/example';
   return {
     inputFolder,
+    defaultOAuthScope,
     disableOutputFiles: true,
     defaultResponses,
     contentType: 'application/json',
@@ -169,7 +171,10 @@ async function updateCustomHeaders(
   isRequired = true
 ) {
   const modifiedArtifacts = await originalGetFHIRArtifactsFn(config);
-  const originalCapabilityStatement = modifiedArtifacts.capabilityStatements[0];
+  const originalCapabilityStatement =
+    modifiedArtifacts.capabilityStatements.find(
+      (cpstmt) => cpstmt['id'] === 'ExampleCapabilityStatementSMART'
+    );
 
   // Navigate and find the relevant extensions
   const resourceMetadataExtension = originalCapabilityStatement.extension.find(
