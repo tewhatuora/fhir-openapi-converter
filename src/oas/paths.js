@@ -45,16 +45,12 @@ const buildReadPath = async (
         ),
         ...(config.securitySchemes?.smartOnFhir
           ? {
-              security: [
-                {
-                  smartOnFhir: getSMARTScopes(
-                    serverResource.type,
-                    config.smartFeatures,
-                    'r'
-                  ),
-                },
-              ],
-            }
+              security: getSMARTScopes(
+                serverResource.type,
+                config.smartFeatures,
+                'r'
+              ).map(scope => ({ smartOnFhir: [scope] }))
+          }
           : {}),
       },
     },
@@ -93,16 +89,12 @@ const buildVersionedReadPath = async (
         ),
         ...(config.securitySchemes?.smartOnFhir
           ? {
-              security: [
-                {
-                  smartOnFhir: getSMARTScopes(
-                    serverResource.type,
-                    config.smartFeatures,
-                    'r'
-                  ),
-                },
-              ],
-            }
+              security: getSMARTScopes(
+                serverResource.type,
+                config.smartFeatures,
+                'r'
+              ).map(scope => ({ smartOnFhir: [scope] }))
+          }
           : {}),
       },
     },
@@ -143,16 +135,12 @@ const buildCreatePath = async (
         ),
         ...(config.securitySchemes?.smartOnFhir
           ? {
-              security: [
-                {
-                  smartOnFhir: getSMARTScopes(
-                    serverResource.type,
-                    config.smartFeatures,
-                    'c'
-                  ),
-                },
-              ],
-            }
+              security: getSMARTScopes(
+                serverResource.type,
+                config.smartFeatures,
+                'c'
+              ).map(scope => ({ smartOnFhir: [scope] }))
+          }
           : {}),
       },
     },
@@ -196,16 +184,12 @@ const buildPatchPath = async (
         ),
         ...(config.securitySchemes?.smartOnFhir
           ? {
-              security: [
-                {
-                  smartOnFhir: getSMARTScopes(
-                    serverResource.type,
-                    config.smartFeatures,
-                    'u'
-                  ),
-                },
-              ],
-            }
+              security: getSMARTScopes(
+                serverResource.type,
+                config.smartFeatures,
+                'u'
+              ).map(scope => ({ smartOnFhir: [scope] }))
+          }
           : {}),
       },
     },
@@ -240,16 +224,12 @@ const buildSearchPath = async (
         ),
         ...(config.securitySchemes?.smartOnFhir
           ? {
-              security: [
-                {
-                  smartOnFhir: getSMARTScopes(
-                    serverResource.type,
-                    config.smartFeatures,
-                    's'
-                  ),
-                },
-              ],
-            }
+              security: getSMARTScopes(
+                serverResource.type,
+                config.smartFeatures,
+                's'
+              ).map(scope => ({ smartOnFhir: [scope] }))
+          }
           : {}),
       },
     },
@@ -293,16 +273,12 @@ const buildUpdatePath = async (
         ),
         ...(config.securitySchemes?.smartOnFhir
           ? {
-              security: [
-                {
-                  smartOnFhir: getSMARTScopes(
-                    serverResource.type,
-                    config.smartFeatures,
-                    'u'
-                  ),
-                },
-              ],
-            }
+              security: getSMARTScopes(
+                serverResource.type,
+                config.smartFeatures,
+                'u'
+              ).map(scope => ({ smartOnFhir: [scope] }))
+          }
           : {}),
       },
     },
@@ -340,16 +316,12 @@ const buildDeletePath = async (
         ),
         ...(config.securitySchemes?.smartOnFhir
           ? {
-              security: [
-                {
-                  smartOnFhir: getSMARTScopes(
-                    serverResource.type,
-                    config.smartFeatures,
-                    'd'
-                  ),
-                },
-              ],
-            }
+              security: getSMARTScopes(
+                serverResource.type,
+                config.smartFeatures,
+                'd'
+              ).map(scope => ({ smartOnFhir: [scope] }))
+          }
           : {}),
       },
     },

@@ -93,6 +93,28 @@ const generateOpenApiSpec = async (config, capabilityStatement) => {
           )
         );
     }
+
+    const allScopes = [];
+    Object.keys(oas.components.securitySchemes).forEach((key) => {
+      const scheme = oas.components.securitySchemes[key];
+      if (scheme.flows) {
+        Object.keys(scheme.flows).forEach((flow) => {
+          if (scheme.flows[flow].scopes) {
+            allScopes.push(...Object.keys(scheme.flows[flow].scopes));
+          }
+        });
+      }
+    });
+    const uniqueScopesArray = [...new Set(allScopes)];
+    if (oas.paths?.['/'].post) {
+      const securitySchemesKeys = Object.keys(oas.components.securitySchemes);
+      oas.paths['/'].post.security = uniqueScopesArray.map(scope => {
+        return securitySchemesKeys.reduce((acc, key) => {
+          acc.push({ [key]: [scope] });
+          return acc;
+        }, []);
+      }).flat();
+    }
   }
 
   if (tags.length) {
@@ -124,7 +146,6 @@ const generateOpenApiSpec = async (config, capabilityStatement) => {
         }
       });
     });
-    // Use lodash's set function to update the OpenAPI spec object
     _.set(oas, 'components.examples', exampleSchemas);
   }
 
