@@ -1,7 +1,6 @@
 const logger = require('./logger');
 const _ = require('lodash');
 const { buildPaths } = require('./oas/paths');
-const { deduplicateTopLevelProperties } = require('./de-dupe-schemas');
 const {
   convertFhirSecurityToOpenApi,
   extractOAuthScopes,
@@ -162,15 +161,6 @@ const generateOpenApiSpec = async (config, capabilityStatement) => {
       });
     });
     _.set(oas, 'components.examples', exampleSchemas);
-  }
-
-  if (config.dedupeSchemas) {
-    logger.debug('De-duping schemeas');
-    _.set(
-      oas,
-      'components.schemas',
-      deduplicateTopLevelProperties(oas.components.schemas)
-    );
   }
 
   return oas;

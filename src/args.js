@@ -53,14 +53,6 @@ const getArgs = () => {
         'Whether or not downloaded Implementation Guides should be persisted for debugging. Example: --persistFiles true',
       demandOption: false,
     })
-    .option('dedupeSchemas', {
-      default: false,
-      alias: 'dp',
-      type: 'boolean',
-      description:
-        'Whether or not to de-dedupe schemas to reduce spec size. Example: --dedupeSchemas false',
-      demandOption: false,
-    })
     .option('contentType', {
       default: 'application/json',
       alias: 'ct',
