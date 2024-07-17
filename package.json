@@ -1,6 +1,6 @@
 {
   "name": "fhir-openapi-converter",
-  "version": "1.0.1-1",
+  "version": "1.0.1-2",
   "license": "CC BY-NC-ND 4.0",
   "description": "Generates OpenAPI spec from FHIR R4 definitions",
   "engines": {
