@@ -577,18 +577,19 @@ const capabilityStatementRestResourceToPath = async (
   );
   const customOperations = {};
   for (const operation of resource?.operation ?? []) {
-
     const { definition, oas } = getCustomOperation(config, operation, type);
     if (definition.instance) {
-      const operations = {...oas};
+      const operations = { ...oas };
       Object.keys(operations).forEach((method) => {
-        operations[method]?.parameters.push(getPathParameter('rid', 'Resource id'));
+        operations[method]?.parameters.push(
+          getPathParameter('rid', 'Resource id')
+        );
         operations[method].operationId = `custom-${operation.name}-instance`;
       });
       customOperations[`/${type}/{rid}/$${operation.name}`] = operations;
     }
     if (definition.type) {
-      const operations = {...oas};
+      const operations = { ...oas };
       Object.keys(operations).forEach((method) => {
         operations[method].operationId = `custom-${operation.name}-type`;
       });

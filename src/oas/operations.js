@@ -105,7 +105,12 @@ const getCustomOperation = (config, operation, resourceType) => {
 
   return {
     definition: operationDefinition,
-    oas: getOperationConfig(operationDefinition, resourceType, outParam, config)
+    oas: getOperationConfig(
+      operationDefinition,
+      resourceType,
+      outParam,
+      config
+    ),
   };
 };
 
