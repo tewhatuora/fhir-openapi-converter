@@ -31,11 +31,7 @@ const buildReadPath = async (
         parameters: [
           ...setGlobalHeaders(config),
           getPathParameter('rid', 'Resource id'),
-        ].concat(
-          (serverResource.searchParam || []).map((param) =>
-            renderParameter(param)
-          )
-        ),
+        ],
         responses: await getResponses(
           config,
           'read',
@@ -80,11 +76,7 @@ const buildVersionedReadPath = async (
           ...setGlobalHeaders(config),
           getPathParameter('rid', 'Resource id'),
           getPathParameter('vid', 'Resource version id'),
-        ].concat(
-          (serverResource.searchParam || []).map((param) =>
-            renderParameter(param)
-          )
-        ),
+        ],
         responses: await getResponses(
           config,
           'vread',
@@ -125,11 +117,7 @@ const buildCreatePath = async (
         description: `Create ${serverResource.type}`,
         tags: [serverResource.type],
         operationId: `create${serverResource.type}`,
-        parameters: [...setGlobalHeaders(config)].concat(
-          (serverResource.searchParam || []).map((param) =>
-            renderParameter(param)
-          )
-        ),
+        parameters: [...setGlobalHeaders(config)],
         responses: await getResponses(
           config,
           'create',
@@ -179,11 +167,7 @@ const buildPatchPath = async (
         parameters: [
           ...setGlobalHeaders(config),
           getPathParameter('rid', 'Resource id'),
-        ].concat(
-          (serverResource.searchParam || []).map((param) =>
-            renderParameter(param)
-          )
-        ),
+        ],
         responses: await getResponses(
           config,
           'patch',
@@ -278,11 +262,7 @@ const buildUpdatePath = async (
         parameters: [
           ...setGlobalHeaders(config),
           getPathParameter('rid', 'Resource id'),
-        ].concat(
-          (serverResource.searchParam || []).map((param) =>
-            renderParameter(param)
-          )
-        ),
+        ],
         responses: await getResponses(
           config,
           'update',
@@ -332,11 +312,7 @@ const buildDeletePath = async (
         parameters: [
           ...setGlobalHeaders(config),
           getPathParameter('rid', 'Resource id'),
-        ].concat(
-          (serverResource.searchParam || []).map((param) =>
-            renderParameter(param)
-          )
-        ),
+        ],
         responses: await getResponses(
           config,
           'delete',
