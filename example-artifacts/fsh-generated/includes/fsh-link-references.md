@@ -6,4 +6,5 @@
 [example-patient-instance]: Patient-example-patient-instance.html
 [ExampleOperationModeOperationDefinition]: OperationDefinition-ExampleOperationModeOperationDefinition.html
 [ExampleQueryOperationDefinition]: OperationDefinition-ExampleQueryOperationDefinition.html
+[ExampleQueryInstanceOperationDefinition]: OperationDefinition-ExampleQueryInstanceOperationDefinition.html
 [ExampleSystemOperationDefinition]: OperationDefinition-ExampleSystemOperationDefinition.html

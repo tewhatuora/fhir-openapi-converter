@@ -5,7 +5,7 @@
     "fshType": "Instance",
     "fshFile": "ExampleCapabilityStatementOAuth.fsh",
     "startLine": 1,
-    "endLine": 82
+    "endLine": 84
   },
   {
     "outputFile": "CapabilityStatement-ExampleCapabilityStatementSMART.json",
@@ -13,15 +13,23 @@
     "fshType": "Instance",
     "fshFile": "ExampleCapabilityStatementSMART.fsh",
     "startLine": 1,
-    "endLine": 88
+    "endLine": 90
   },
   {
     "outputFile": "OperationDefinition-ExampleOperationModeOperationDefinition.json",
     "fshName": "ExampleOperationModeOperationDefinition",
     "fshType": "Instance",
     "fshFile": "ExampleOperationDefinitions.fsh",
-    "startLine": 45,
-    "endLine": 84
+    "startLine": 88,
+    "endLine": 127
+  },
+  {
+    "outputFile": "OperationDefinition-ExampleQueryInstanceOperationDefinition.json",
+    "fshName": "ExampleQueryInstanceOperationDefinition",
+    "fshType": "Instance",
+    "fshFile": "ExampleOperationDefinitions.fsh",
+    "startLine": 44,
+    "endLine": 85
   },
   {
     "outputFile": "OperationDefinition-ExampleQueryOperationDefinition.json",
@@ -36,8 +44,8 @@
     "fshName": "ExampleSystemOperationDefinition",
     "fshType": "Instance",
     "fshFile": "ExampleOperationDefinitions.fsh",
-    "startLine": 86,
-    "endLine": 127
+    "startLine": 129,
+    "endLine": 170
   },
   {
     "outputFile": "Patient-example-patient-instance.json",

@@ -93,6 +93,13 @@
       },
       {
         "reference": {
+          "reference": "OperationDefinition/ExampleQueryInstanceOperationDefinition"
+        },
+        "name": "Patient Summary",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
           "reference": "OperationDefinition/ExampleSystemOperationDefinition"
         },
         "name": "Patient Summary - system",

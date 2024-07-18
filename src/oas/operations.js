@@ -60,7 +60,6 @@ const getOperationConfig = (
     description:
       operationDefinition.description ||
       `Custom operation ${operationDefinition.code} ${resourceType}`,
-    operationId: `customOperation-${resourceType}-${operationDefinition.code}`,
     tags: [resourceType],
     responses: getOperationResponse(outParam, operationDefinition.name, config),
     parameters: setGlobalHeaders(config),
@@ -105,7 +104,8 @@ const getCustomOperation = (config, operation, resourceType) => {
   );
 
   return {
-    ...getOperationConfig(operationDefinition, resourceType, outParam, config),
+    definition: operationDefinition,
+    oas: getOperationConfig(operationDefinition, resourceType, outParam, config)
   };
 };
 

@@ -58,6 +58,8 @@ Usage: #definition
 * rest.resource[=].operation[=].definition = Canonical(ExampleQueryOperationDefinition)
 * rest.resource[=].operation[+].name = "match"
 * rest.resource[=].operation[=].definition = Canonical(ExampleOperationModeOperationDefinition)
+* rest.resource[=].operation[+].name = "instanceoperation"
+* rest.resource[=].operation[=].definition = Canonical(ExampleQueryInstanceOperationDefinition)
 * rest.resource[=].interaction[+].code = #read
 * rest.resource[=].interaction[+].code = #search-type
 * rest.resource[=].interaction[+].code = #create

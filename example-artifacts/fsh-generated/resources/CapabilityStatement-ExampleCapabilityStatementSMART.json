@@ -166,6 +166,10 @@
             {
               "name": "match",
               "definition": "https://example.com/OperationDefinition/ExampleOperationModeOperationDefinition"
+            },
+            {
+              "name": "instanceoperation",
+              "definition": "https://example.com/OperationDefinition/ExampleQueryInstanceOperationDefinition"
             }
           ],
           "interaction": [

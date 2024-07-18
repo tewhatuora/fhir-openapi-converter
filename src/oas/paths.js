@@ -447,11 +447,11 @@ const systemLevelPaths = async (config, interactions, operations) => {
     };
   }
   for (const operation of operations ?? []) {
-    rootPaths[`/$${operation.name}`] = getCustomOperation(
-      config,
-      operation,
-      'system'
-    );
+    const { oas } = getCustomOperation(config, operation, 'system');
+    Object.keys(oas).forEach((method) => {
+      oas[method].operationId = `custom-${operation.name}-system`;
+    });
+    rootPaths[`/$${operation.name}`] = oas;
   }
   return rootPaths;
 };
@@ -577,11 +577,23 @@ const capabilityStatementRestResourceToPath = async (
   );
   const customOperations = {};
   for (const operation of resource?.operation ?? []) {
-    customOperations[`/${type}/$${operation.name}`] = getCustomOperation(
-      config,
-      operation,
-      type
-    );
+
+    const { definition, oas } = getCustomOperation(config, operation, type);
+    if (definition.instance) {
+      const operations = {...oas};
+      Object.keys(operations).forEach((method) => {
+        operations[method]?.parameters.push(getPathParameter('rid', 'Resource id'));
+        operations[method].operationId = `custom-${operation.name}-instance`;
+      });
+      customOperations[`/${type}/{rid}/$${operation.name}`] = operations;
+    }
+    if (definition.type) {
+      const operations = {...oas};
+      Object.keys(operations).forEach((method) => {
+        operations[method].operationId = `custom-${operation.name}-type`;
+      });
+      customOperations[`/${type}/$${operation.name}`] = operations;
+    }
   }
 
   addOrUpdatePath(
