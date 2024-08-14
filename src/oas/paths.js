@@ -129,7 +129,8 @@ const buildCreatePath = async (
           config,
           'create',
           serverResource,
-          profileSchemas
+          profileSchemas,
+          examples
         ),
         ...(config.securitySchemes?.smartOnFhir
           ? {
@@ -179,7 +180,8 @@ const buildPatchPath = async (
           config,
           'patch',
           serverResource,
-          profileSchemas
+          profileSchemas,
+          examples
         ),
         ...(config.securitySchemes?.smartOnFhir
           ? {
@@ -274,7 +276,8 @@ const buildUpdatePath = async (
           config,
           'update',
           serverResource,
-          profileSchemas
+          profileSchemas,
+          examples
         ),
         ...(config.securitySchemes?.smartOnFhir
           ? {
