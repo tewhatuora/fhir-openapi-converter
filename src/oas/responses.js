@@ -1,4 +1,6 @@
 const { getBundleResponseSchema } = require('./bundle');
+const { wrapExamplesAsSearchSet } = require('./examples');
+
 const OAS_SCHEMA_BASE_URL =
   'https://raw.githubusercontent.com/tewhatuora/schemas/main/alt-fhir-oas-flattened/';
 
@@ -81,6 +83,14 @@ const getResponses = async (
         content: {
           [config.contentType]: {
             schema: getBundleResponseSchema([], profileRefs, ['searchset']),
+            ...(Object.keys(examples).length
+              ? {
+                  examples: wrapExamplesAsSearchSet(
+                    config,
+                    serverResource.type
+                  ),
+                }
+              : {}),
           },
         },
       },

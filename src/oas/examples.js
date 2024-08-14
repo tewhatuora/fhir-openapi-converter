@@ -12,6 +12,37 @@ const getExamples = async (config, profileSchemas) => {
   return matchingExamples;
 };
 
+const wrapExamplesAsSearchSet = (config, resourceType) => {
+  const validExamples = [];
+  Object.keys(config.igFiles?.examples).forEach((key) => {
+    if (config.igFiles?.examples[key].length) {
+      config.igFiles?.examples[key].forEach((example) => {
+        if (example.resourceType === resourceType) {
+          validExamples.push(example);
+        }
+      });
+    }
+  });
+
+  const resourceExamples = {};
+  if (validExamples.length) {
+    resourceExamples['searchset-example'] = {
+      value: {
+        resourceType: 'Bundle',
+        type: 'searchset',
+        entry: validExamples.map((example) => {
+          return {
+            resource: example,
+          };
+        }),
+      },
+    };
+  }
+
+  return resourceExamples || {};
+};
+
 module.exports = {
   getExamples,
+  wrapExamplesAsSearchSet,
 };

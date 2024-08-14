@@ -157,6 +157,8 @@ const generateOpenApiSpec = async (config, capabilityStatement) => {
         if (exampleKeys.includes(expectedKey)) {
           // Assign the example to the schema object under the formatted key
           exampleSchemas[expectedKey] = { value: example };
+          exampleSchemas[`${expectedKey}-create`] = { value: { ...example } };
+          delete exampleSchemas[`${expectedKey}-create`].value.id;
         }
       });
     });
