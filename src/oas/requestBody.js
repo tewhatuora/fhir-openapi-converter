@@ -27,7 +27,7 @@ const getRequestBody = async (
                   {
                     ...value,
                     $ref:
-                      method === 'post'
+                      method === 'create'
                         ? `${value['$ref']}-create`
                         : value['$ref'],
                   },
