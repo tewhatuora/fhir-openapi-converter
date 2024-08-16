@@ -21,7 +21,12 @@ const main = async (config) => {
     const generatedOas = [];
     for (const capabilityStatement of capabilityStatements) {
       const oas = await generateOpenApiSpec(
-        { ...config, packageDirectory, igFiles },
+        {
+          ...config,
+          packageDirectory,
+          igFiles,
+          serverUrl: capabilityStatement?.implementation?.url,
+        },
         capabilityStatement
       );
       await writeOasFiles(config, oas, capabilityStatement);

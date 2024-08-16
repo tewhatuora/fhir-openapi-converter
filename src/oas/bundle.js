@@ -76,6 +76,16 @@ const getBundleResponseSchema = (interactions, profileRefs, forceType) => {
               type: 'string',
               description: 'The full url of the resource',
             },
+            search: {
+              type: 'object',
+              properties: {
+                mode: {
+                  type: 'string',
+                  enum: ['match'],
+                  description: 'The search mode.',
+                },
+              },
+            },
           },
         },
       },

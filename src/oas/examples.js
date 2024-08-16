@@ -32,7 +32,11 @@ const wrapExamplesAsSearchSet = (config, resourceType) => {
         type: 'searchset',
         entry: validExamples.map((example) => {
           return {
+            fullUrl: `${config.serverUrl}/${example.resourceType}/${example.id}`,
             resource: example,
+            search: {
+              mode: 'match',
+            },
           };
         }),
       },
