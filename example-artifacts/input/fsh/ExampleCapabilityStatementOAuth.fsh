@@ -24,6 +24,7 @@ Usage: #definition
 * extension[HnzApiSpecBuilderExtension].extension[globalHeaders].extension[=].extension[value].valueUri = "https://raw.githubusercontent.com/tewhatuora/schemas/main/shared-care/Correlation-Id.json"
 * extension[HnzApiSpecBuilderExtension].extension[globalHeaders].extension[=].extension[required].valueBoolean = true
 * extension[HnzApiSpecBuilderExtension].extension[globalHeaders].extension[+].extension[key].valueString = "x-api-key"
+* extension[HnzApiSpecBuilderExtension].extension[globalHeaders].extension[=].extension[documentation].valueString = "The required API key"
 * extension[HnzApiSpecBuilderExtension].extension[globalHeaders].extension[=].extension[value].valueUri = "https://raw.githubusercontent.com/tewhatuora/schemas/main/shared-care/Api-Key.json"
 * extension[HnzApiSpecBuilderExtension].extension[globalHeaders].extension[=].extension[required].valueBoolean = false
 * extension[HnzApiSpecBuilderExtension].extension[licenseURL].valueUri = "https://example.license.org"
@@ -61,6 +62,7 @@ Usage: #definition
 * rest.resource[=].operation[+].name = "instanceoperation"
 * rest.resource[=].operation[=].definition = Canonical(ExampleQueryInstanceOperationDefinition)
 * rest.resource[=].interaction[+].code = #read
+* rest.resource[=].interaction[=].documentation = "Example custom documentation for read interaction"
 * rest.resource[=].interaction[+].code = #search-type
 * rest.resource[=].interaction[+].code = #create
 * rest.resource[=].interaction[+].code = #update

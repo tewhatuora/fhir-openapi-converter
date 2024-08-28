@@ -17,12 +17,18 @@ const extractCustomExtensions = (capabilityStatement) => {
           const keyExtension = _.find(item.extension, { url: 'key' });
           const valueExtension = _.find(item.extension, { url: 'value' });
           const requiredExtension = _.find(item.extension, { url: 'required' });
+          const documentationExtension = _.find(item.extension, {
+            url: 'documentation',
+          });
 
           if (keyExtension?.valueString && valueExtension?.valueUri) {
             acc.push({
               [keyExtension.valueString]: {
                 value: valueExtension.valueUri,
                 required: requiredExtension?.valueBoolean || false,
+                ...(documentationExtension?.valueString
+                  ? { documentation: documentationExtension.valueString }
+                  : {}),
               },
             });
           } else {

@@ -18,14 +18,15 @@ const buildReadPath = async (
   config,
   serverResource,
   profileSchemas,
-  examples
+  examples,
+  documentation
 ) => {
   logger.debug(`Building read path for ${serverResource.type}`);
   return {
     [`/${serverResource.type}/{rid}`]: {
       get: {
         summary: `Read ${serverResource.type}`,
-        description: `Read ${serverResource.type}`,
+        description: documentation || `Read ${serverResource.type}`,
         tags: [serverResource.type],
         operationId: `read${serverResource.type}`,
         parameters: [
@@ -62,14 +63,15 @@ const buildVersionedReadPath = async (
   config,
   serverResource,
   profileSchemas,
-  examples
+  examples,
+  documentation
 ) => {
   logger.debug(`Building vread path for ${serverResource.type}`);
   return {
     [`/${serverResource.type}/{rid}/_history/{vid}`]: {
       get: {
         summary: `Read ${serverResource.type} (versioned)`,
-        description: `Read ${serverResource.type} (versioned)`,
+        description: documentation || `Read ${serverResource.type} (versioned)`,
         tags: [serverResource.type],
         operationId: `vread${serverResource.type}`,
         parameters: [
@@ -107,14 +109,15 @@ const buildCreatePath = async (
   config,
   serverResource,
   profileSchemas,
-  examples
+  examples,
+  documentation
 ) => {
   logger.debug(`Building create path for ${serverResource.type}`);
   return {
     [`/${serverResource.type}`]: {
       post: {
         summary: `Create ${serverResource.type}`,
-        description: `Create ${serverResource.type}`,
+        description: documentation || `Create ${serverResource.type}`,
         tags: [serverResource.type],
         operationId: `create${serverResource.type}`,
         parameters: [...setGlobalHeaders(config)],
@@ -155,14 +158,15 @@ const buildPatchPath = async (
   config,
   serverResource,
   profileSchemas,
-  examples
+  examples,
+  documentation
 ) => {
   logger.debug(`Building patch path for ${serverResource.type}`);
   return {
     [`/${serverResource.type}/{rid}`]: {
       patch: {
         summary: `Patch for ${serverResource.type}`,
-        description: `Patch for ${serverResource.type}`,
+        description: documentation || `Patch for ${serverResource.type}`,
         tags: [serverResource.type],
         operationId: `patch${serverResource.type}`,
         parameters: [
@@ -206,14 +210,15 @@ const buildSearchPath = async (
   config,
   serverResource,
   profileSchemas,
-  examples
+  examples,
+  documentation
 ) => {
   logger.debug(`Building search path for ${serverResource.type}`);
   return {
     [`/${serverResource.type}`]: {
       get: {
         summary: `Search for ${serverResource.type}`,
-        description: `Search for ${serverResource.type}`,
+        description: documentation || `Search for ${serverResource.type}`,
         tags: [serverResource.type],
         operationId: `search${serverResource.type}`,
         parameters: [...setGlobalHeaders(config)].concat(
@@ -251,14 +256,15 @@ const buildUpdatePath = async (
   config,
   serverResource,
   profileSchemas,
-  examples
+  examples,
+  documentation
 ) => {
   logger.debug(`Building update path for ${serverResource.type}`);
   return {
     [`/${serverResource.type}/{rid}`]: {
       put: {
         summary: `Update ${serverResource.type}`,
-        description: `Update ${serverResource.type}`,
+        description: documentation || `Update ${serverResource.type}`,
         tags: [serverResource.type],
         operationId: `update${serverResource.type}`,
         parameters: [
@@ -302,14 +308,15 @@ const buildDeletePath = async (
   config,
   serverResource,
   profileSchemas,
-  examples
+  examples,
+  documentation
 ) => {
   logger.debug(`Building delete path for ${serverResource.type}`);
   return {
     [`/${serverResource.type}/{rid}`]: {
       delete: {
         summary: `Delete ${serverResource.type}`,
-        description: `Delete ${serverResource.type}`,
+        description: documentation || `Delete ${serverResource.type}`,
         tags: [serverResource.type],
         operationId: `delete${serverResource.type}`,
         parameters: [
@@ -485,7 +492,7 @@ const capabilityStatementRestResourceToPath = async (
   const examples = await getExamples(config, profileSchemas);
   const paths = {};
   await Promise.all(
-    interaction.map(async ({ code }) => {
+    interaction.map(async ({ code, documentation }) => {
       let pathDetails;
       switch (code) {
         case 'read':
@@ -493,7 +500,8 @@ const capabilityStatementRestResourceToPath = async (
             config,
             resource,
             profileSchemas,
-            examples
+            examples,
+            documentation
           );
           break;
         case 'vread':
@@ -501,7 +509,8 @@ const capabilityStatementRestResourceToPath = async (
             config,
             resource,
             profileSchemas,
-            examples
+            examples,
+            documentation
           );
           break;
         case 'search-type':
@@ -509,7 +518,8 @@ const capabilityStatementRestResourceToPath = async (
             config,
             resource,
             profileSchemas,
-            examples
+            examples,
+            documentation
           );
           break;
         case 'create':
@@ -517,7 +527,8 @@ const capabilityStatementRestResourceToPath = async (
             config,
             resource,
             profileSchemas,
-            examples
+            examples,
+            documentation
           );
           break;
         case 'update':
@@ -525,7 +536,8 @@ const capabilityStatementRestResourceToPath = async (
             config,
             resource,
             profileSchemas,
-            examples
+            examples,
+            documentation
           );
           break;
         case 'patch':
@@ -533,7 +545,8 @@ const capabilityStatementRestResourceToPath = async (
             config,
             resource,
             profileSchemas,
-            examples
+            examples,
+            documentation
           );
           break;
         case 'delete':
@@ -541,7 +554,8 @@ const capabilityStatementRestResourceToPath = async (
             config,
             resource,
             profileSchemas,
-            examples
+            examples,
+            documentation
           );
           break;
         default:

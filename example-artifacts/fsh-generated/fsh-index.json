@@ -5,7 +5,7 @@
     "fshType": "Instance",
     "fshFile": "ExampleCapabilityStatementOAuth.fsh",
     "startLine": 1,
-    "endLine": 84
+    "endLine": 86
   },
   {
     "outputFile": "CapabilityStatement-ExampleCapabilityStatementSMART.json",
