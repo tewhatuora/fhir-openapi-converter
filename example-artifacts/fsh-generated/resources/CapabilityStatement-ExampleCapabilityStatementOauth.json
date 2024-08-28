@@ -55,6 +55,10 @@
                 {
                   "url": "required",
                   "valueBoolean": false
+                },
+                {
+                  "url": "documentation",
+                  "valueString": "The required API key"
                 }
               ],
               "url": "https://fhir-ig.digital.health.nz/hnz-digital-tooling/StructureDefinition/custom-headers-extension"
@@ -63,17 +67,6 @@
           "url": "globalHeaders"
         }
       ]
-    }
-  ],
-  "contact": [
-    {
-      "telecom": [
-        {
-          "system": "url",
-          "value": "https://example.com"
-        }
-      ],
-      "name": "Example Contact Details"
     }
   ],
   "status": "draft",
@@ -162,7 +155,8 @@
           ],
           "interaction": [
             {
-              "code": "read"
+              "code": "read",
+              "documentation": "Example custom documentation for read interaction"
             },
             {
               "code": "search-type"
@@ -208,6 +202,17 @@
               "code": "vread"
             }
           ]
+        }
+      ]
+    }
+  ],
+  "contact": [
+    {
+      "name": "Example Contact Details",
+      "telecom": [
+        {
+          "value": "https://example.com",
+          "system": "url"
         }
       ]
     }

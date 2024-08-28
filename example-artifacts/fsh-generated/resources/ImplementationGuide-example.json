@@ -26,7 +26,7 @@
   "dependsOn": [
     {
       "packageId": "tewhatuora.digitaltooling",
-      "version": "0.0.7",
+      "version": "0.0.11",
       "uri": "https://fhir-ig.digital.health.nz/hnz-digital-tooling/ImplementationGuide/tewhatuora.digitaltooling",
       "id": "tewhatuora_digitaltooling"
     }

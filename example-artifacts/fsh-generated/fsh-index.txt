@@ -1,5 +1,5 @@
 Output File                                                       Name                                     Type      FSH File                             Lines
-CapabilityStatement-ExampleCapabilityStatementOauth.json          ExampleCapabilityStatementOauth          Instance  ExampleCapabilityStatementOAuth.fsh  1 - 84
+CapabilityStatement-ExampleCapabilityStatementOauth.json          ExampleCapabilityStatementOauth          Instance  ExampleCapabilityStatementOAuth.fsh  1 - 86
 CapabilityStatement-ExampleCapabilityStatementSMART.json          ExampleCapabilityStatementSMART          Instance  ExampleCapabilityStatementSMART.fsh  1 - 90
 OperationDefinition-ExampleOperationModeOperationDefinition.json  ExampleOperationModeOperationDefinition  Instance  ExampleOperationDefinitions.fsh      88 - 127
 OperationDefinition-ExampleQueryInstanceOperationDefinition.json  ExampleQueryInstanceOperationDefinition  Instance  ExampleOperationDefinitions.fsh      44 - 85

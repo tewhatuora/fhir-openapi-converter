@@ -80,6 +80,9 @@ const setGlobalHeaders = (config) => {
         name: name,
         in: 'header',
         required: details.required,
+        ...(details.documentation
+          ? { description: details.documentation }
+          : {}),
         schema: {
           type: 'string',
           $ref: details.value,

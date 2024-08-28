@@ -12,4 +12,4 @@ publisher:
   url: https://example.org
 license: MIT
 dependencies:
-  tewhatuora.digitaltooling: 0.0.7
+  tewhatuora.digitaltooling: 0.0.11

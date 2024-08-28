@@ -65,17 +65,6 @@
       ]
     }
   ],
-  "contact": [
-    {
-      "telecom": [
-        {
-          "system": "url",
-          "value": "https://example.com"
-        }
-      ],
-      "name": "Example Contact Details"
-    }
-  ],
   "status": "draft",
   "date": "2024-04-18",
   "kind": "instance",
@@ -220,6 +209,17 @@
               "code": "vread"
             }
           ]
+        }
+      ]
+    }
+  ],
+  "contact": [
+    {
+      "name": "Example Contact Details",
+      "telecom": [
+        {
+          "value": "https://example.com",
+          "system": "url"
         }
       ]
     }
