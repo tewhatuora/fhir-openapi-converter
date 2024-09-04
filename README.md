@@ -51,8 +51,9 @@ Review the [HNZ Digital Tooling IG](https://fhir-ig.digital.health.nz/hnz-digita
 ### Usage Examples
 
 ```bash
-./src/cli.js --inputFolder ./example-artifacts
-./src/cli.js --remoteUrl https://build.fhir.org/ig/tewhatuora/fhir-auditevents/package.tgz --remoteDependencyUrl https://fhir.org.nz/ig/base/package.tgz
+./src/cli.js --remoteUrl https://fhir-ig.digital.health.nz/shared-care/package.tgz
+./src/cli.js --remoteUrl https://fhir-ig.digital.health.nz/screening/package.tgz
+./src/cli.js --inputFolder ./example-artifacts --defaultOAuthScope scope/example
 ```
 
 The `LOG_LEVEL` environment variable can be used to set a log level for output written to the console. e.g. `LOG_LEVEL=debug ./src/cli.js --inputFolder ./example-artifacts`. The default settings is `info`.

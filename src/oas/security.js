@@ -6,7 +6,7 @@ const _ = require('lodash');
  * @param {Object} security - FHIR security configuration object.
  * @returns {Object} Object containing OpenAPI security schemes and SMART features.
  */
-const convertFhirSecurityToOpenApi = (security) => {
+const convertFhirSecurityToOpenApi = (config, security) => {
   const allSecuritySchemes = {};
   let smartFeatures = [];
   if (security?.service?.length) {
@@ -20,6 +20,11 @@ const convertFhirSecurityToOpenApi = (security) => {
         smartFeatures = getSMARTScopeBases(security);
       } else if (service.coding[0].code === 'OAuth') {
         logger.debug('Found OAuth security scheme');
+        if (!config.defaultOAuthScope) {
+          throw new Error(
+            'Found OAuth security with no defaultOAuthScope defined in the configuration. Configure a defaultOAuthScope'
+          );
+        }
         allSecuritySchemes['OAuth'] = convertOauthSecurityToOpenApi(
           service.coding[0].code,
           security

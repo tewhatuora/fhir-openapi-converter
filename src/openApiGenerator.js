@@ -12,6 +12,7 @@ const generateOpenApiSpec = async (config, capabilityStatement) => {
   const customCapabilityStatementDetails =
     extractCustomExtensions(capabilityStatement);
   const { securitySchemes, smartFeatures } = convertFhirSecurityToOpenApi(
+    config,
     capabilityStatement?.rest?.[0].security
   );
   const mergedConfig = {
