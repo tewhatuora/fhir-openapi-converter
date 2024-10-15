@@ -119,7 +119,7 @@ const generateOpenApiSpec = async (config, capabilityStatement) => {
       }
     });
     const uniqueScopesArray = [...new Set(allScopes)];
-    if (oas.paths?.['/'].post) {
+    if (oas.paths?.['/']?.post) {
       const securitySchemesKeys = Object.keys(oas.components.securitySchemes);
       oas.paths['/'].post.security = uniqueScopesArray
         .map((scope) => {
