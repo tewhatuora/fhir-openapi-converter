@@ -33,6 +33,11 @@ const generateOasSchemasFromProfiles = async (
       resourceType,
       profile
     );
+
+    if (!structureDefinition) {
+      logger.warn(`Profile ${profile} not found`);
+    }
+
     return {
       fhir: structureDefinition,
       oas: applyStructureDefinitionChanges(baseOasSchema, structureDefinition),

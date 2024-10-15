@@ -479,16 +479,17 @@ const capabilityStatementRestResourceToPath = async (
 ) => {
   const { type, interaction, operation } = resource;
   logger.debug(
-    `Building paths for ${type}. ${interaction?.length} interactions found. ${operation?.length} custom operations found.`
+    `Building paths for ${type}. ${interaction?.length || 0} interactions found. ${operation?.length || 0} custom operations found.`
   );
   logger.debug(`Supported profiles: ${resource.supportedProfile}`);
-  logger.debug(`Base profile: ${resource.profile}`);
+  logger.debug(`Base profile: ${resource.profile || 'not supplied'}`);
   const profileSchemas = await generateOasSchemasFromProfiles(
     config,
     type,
     resource.profile,
     resource.supportedProfile
   );
+
   const examples = await getExamples(config, profileSchemas);
   const paths = {};
   await Promise.all(
