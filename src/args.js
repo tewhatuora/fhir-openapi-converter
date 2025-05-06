@@ -54,11 +54,11 @@ const getArgs = () => {
       demandOption: false,
     })
     .option('contentType', {
-      default: 'application/json',
+      default: ['application/json'],
       alias: 'ct',
-      type: 'string',
+      type: 'array',
       description:
-        'The content type used by the API e.g. application/json or application/fhir+json. Example: --contentType application/fhir+json',
+        'The content types used by the API e.g. application/json or application/fhir+json. Example: --contentType application/json --contentType application/fhir+json',
       demandOption: false,
     })
     .option('defaultResponses', {
@@ -66,7 +66,7 @@ const getArgs = () => {
       alias: 'dr',
       type: 'string',
       description:
-        'Comma separated string of http status codes which the tool adds the default operationoutcome alongside 200/201',
+        'Comma separated string of http status codes which the tool adds the default OperationOutcome alongside 200/201',
       demandOption: false,
     })
     .conflicts('inputFolder', 'remoteUrl')

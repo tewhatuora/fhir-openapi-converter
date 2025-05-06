@@ -4,16 +4,21 @@ const { getParametersResourceSchema } = require('./fhir');
 const { generateDefaultResponses } = require('./responses');
 
 const getOperationResponse = (outParam, operationName, config) => {
+  const content = Object.fromEntries(
+    config.contentType.map((type) => [
+      type,
+      {
+        schema: {
+          $ref: `${OAS_SCHEMA_BASE_URL}${outParam?.type}-definition.json`,
+        },
+      },
+    ])
+  );
+
   const successResponse = {
     200: {
       description: outParam?.description || 'Successful response',
-      content: {
-        [config.contentType]: {
-          schema: {
-            $ref: `${OAS_SCHEMA_BASE_URL}${outParam?.type}-definition.json`,
-          },
-        },
-      },
+      content,
     },
   };
 
@@ -29,11 +34,14 @@ const getOperationResponse = (outParam, operationName, config) => {
 };
 
 const getRequestBody = (config) => ({
-  content: {
-    [config.contentType]: {
-      schema: getParametersResourceSchema(),
-    },
-  },
+  content: Object.fromEntries(
+    config.contentType.map((type) => [
+      type,
+      {
+        schema: getParametersResourceSchema(),
+      },
+    ])
+  ),
 });
 
 const getParameters = (parameters) =>

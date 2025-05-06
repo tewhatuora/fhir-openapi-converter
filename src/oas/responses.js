@@ -16,15 +16,19 @@ const generateDefaultResponses = (interactionType, config) => {
   const defaultResponses = {};
 
   defaultResponsesCodes.forEach((statusCode) => {
-    const generatedResponse = {
-      description: `Unsuccessful ${interactionType} operation - ${statusCode}`,
-      content: {
-        [config.contentType]: {
+    const content = Object.fromEntries(
+      config.contentType.map((type) => [
+        type,
+        {
           schema: {
             $ref: `${OAS_SCHEMA_BASE_URL}OperationOutcome-definition.json`,
           },
         },
-      },
+      ])
+    );
+    const generatedResponse = {
+      description: `Unsuccessful ${interactionType} operation - ${statusCode}`,
+      content,
     };
 
     defaultResponses[statusCode] = generatedResponse;
@@ -64,50 +68,59 @@ const getResponses = async (
   let generatedResponse;
 
   if (interactionType === 'delete') {
+    const content = Object.fromEntries(
+      config.contentType.map((type) => [
+        type,
+        {
+          schema: {
+            $ref: `${OAS_SCHEMA_BASE_URL}OperationOutcome-definition.json`,
+          },
+        },
+      ])
+    );
     generatedResponse = {
       200: {
         description: `Successful ${interactionType} operation`,
-        content: {
-          [config.contentType]: {
-            schema: {
-              $ref: `${OAS_SCHEMA_BASE_URL}OperationOutcome-definition.json`,
-            },
-          },
-        },
+        content,
       },
     };
   } else if (interactionType === 'search') {
+    const content = Object.fromEntries(
+      config.contentType.map((type) => [
+        type,
+        {
+          schema: getBundleResponseSchema([], profileRefs, ['searchset']),
+          ...(Object.keys(examples).length
+            ? {
+                examples: wrapExamplesAsSearchSet(config, serverResource.type),
+              }
+            : {}),
+        },
+      ])
+    );
     generatedResponse = {
       200: {
         description: `Successful ${interactionType} operation`,
-        content: {
-          [config.contentType]: {
-            schema: getBundleResponseSchema([], profileRefs, ['searchset']),
-            ...(Object.keys(examples).length
-              ? {
-                  examples: wrapExamplesAsSearchSet(
-                    config,
-                    serverResource.type
-                  ),
-                }
-              : {}),
-          },
-        },
+        content,
       },
     };
   } else {
     const successStatusCode = interactionType === 'create' ? 201 : 200;
+    const content = Object.fromEntries(
+      config.contentType.map((type) => [
+        type,
+        {
+          schema: {
+            anyOf: [...profileRefs],
+          },
+          ...(Object.keys(examples).length ? { examples } : {}),
+        },
+      ])
+    );
     generatedResponse = {
       [successStatusCode]: {
         description: `Successful ${interactionType} operation`,
-        content: {
-          [config.contentType]: {
-            schema: {
-              anyOf: [...profileRefs],
-            },
-            ...(Object.keys(examples).length ? { examples } : {}),
-          },
-        },
+        content,
       },
     };
   }

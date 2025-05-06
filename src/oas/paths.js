@@ -405,6 +405,24 @@ const systemLevelPaths = async (config, interactions, operations) => {
   }
   const rootPaths = {};
   if (interactions && interactions.length > 0) {
+    const responseContent = Object.fromEntries(
+      config.contentType.map((type) => [
+        type,
+        {
+          schema: getBundleResponseSchema(interactions),
+        },
+      ])
+    );
+
+    const requestContent = Object.fromEntries(
+      config.contentType.map((type) => [
+        type,
+        {
+          schema: getBundleRequestSchema(interactions),
+        },
+      ])
+    );
+
     rootPaths['/'] = {
       post: {
         summary: 'System level interactions',
@@ -415,19 +433,11 @@ const systemLevelPaths = async (config, interactions, operations) => {
         responses: {
           200: {
             description: 'Successful system level interaction',
-            content: {
-              [config.contentType]: {
-                schema: getBundleResponseSchema(interactions),
-              },
-            },
+            content: responseContent,
           },
         },
         requestBody: {
-          content: {
-            [config.contentType]: {
-              schema: getBundleRequestSchema(interactions),
-            },
-          },
+          content: requestContent,
         },
       },
     };
@@ -444,6 +454,22 @@ const systemLevelPaths = async (config, interactions, operations) => {
 
 const buildMetadataPath = async (config, capabilityStatement) => {
   logger.debug('Building metadata path for CapabilityStatement');
+
+  const content = Object.fromEntries(
+    config.contentType.map((type) => [
+      type,
+      {
+        schema: {
+          $ref: `${OAS_SCHEMA_BASE_URL}CapabilityStatement-definition.json`,
+        },
+        examples: {
+          CapabilityStatement: {
+            value: capabilityStatement,
+          },
+        },
+      },
+    ])
+  );
   return {
     get: {
       summary: 'Get CapabilityStatement',
@@ -454,18 +480,7 @@ const buildMetadataPath = async (config, capabilityStatement) => {
       responses: {
         200: {
           description: 'Successful retrieval of the CapabilityStatement',
-          content: {
-            [config.contentType]: {
-              schema: {
-                $ref: `${OAS_SCHEMA_BASE_URL}CapabilityStatement-definition.json`,
-              },
-              examples: {
-                CapabilityStatement: {
-                  value: capabilityStatement,
-                },
-              },
-            },
-          },
+          content,
         },
       },
     },

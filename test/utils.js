@@ -22,7 +22,7 @@ const getTestConfig = () => {
     defaultOAuthScope,
     disableOutputFiles: true,
     defaultResponses,
-    contentType: 'application/json',
+    contentType: ['application/json'],
   };
 };
 

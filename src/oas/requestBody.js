@@ -10,33 +10,34 @@ const getRequestBody = async (
       $ref: `#/components/schemas/${schema.fhir?.resourceType}-${schema.fhir?.id}`,
     };
   });
+  const exampleEntries = Object.keys(examples).length
+    ? Object.fromEntries(
+        Object.entries(examples).map(([key, value]) => [
+          method === 'create' ? `${key}-create` : key,
+          {
+            ...value,
+            $ref:
+              method === 'create' ? `${value['$ref']}-create` : value['$ref'],
+          },
+        ])
+      )
+    : undefined;
 
-  return {
-    description: `${serverResource.type} to create`,
-    required: true,
-    content: {
-      [config.contentType]: {
+  const content = Object.fromEntries(
+    config.contentType.map((type) => [
+      type,
+      {
         schema: {
           anyOf: [...profileRefs],
         },
-        ...(Object.keys(examples).length
-          ? {
-              examples: Object.fromEntries(
-                Object.entries(examples).map(([key, value]) => [
-                  method === 'create' ? `${key}-create` : key,
-                  {
-                    ...value,
-                    $ref:
-                      method === 'create'
-                        ? `${value['$ref']}-create`
-                        : value['$ref'],
-                  },
-                ])
-              ),
-            }
-          : {}),
+        ...(exampleEntries && { examples: exampleEntries }),
       },
-    },
+    ])
+  );
+  return {
+    description: `${serverResource.type} to create`,
+    required: true,
+    content,
   };
 };
 
