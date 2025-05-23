@@ -13,7 +13,7 @@
     "fshType": "Instance",
     "fshFile": "ExampleCapabilityStatementSMART.fsh",
     "startLine": 1,
-    "endLine": 90
+    "endLine": 96
   },
   {
     "outputFile": "OperationDefinition-ExampleOperationModeOperationDefinition.json",

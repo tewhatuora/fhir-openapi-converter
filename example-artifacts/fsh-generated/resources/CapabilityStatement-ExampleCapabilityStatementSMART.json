@@ -186,6 +186,21 @@
               "type": "reference",
               "documentation": "Patient's nominated general practitioner, not the organization that manages the record"
             }
+          ],
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/capabilitystatement-search-parameter-combination",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation",
+                  "valueCode": "SHALL"
+                },
+                {
+                  "url": "required",
+                  "valueString": "general-practitioner"
+                }
+              ]
+            }
           ]
         },
         {
