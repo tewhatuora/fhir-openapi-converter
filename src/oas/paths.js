@@ -223,7 +223,7 @@ const buildSearchPath = async (
         operationId: `search${serverResource.type}`,
         parameters: [...setGlobalHeaders(config)].concat(
           (serverResource.searchParam || []).map((param) =>
-            renderParameter(param)
+            renderParameter(param, serverResource?.extension)
           )
         ),
         responses: await getResponses(

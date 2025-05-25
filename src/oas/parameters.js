@@ -1,20 +1,36 @@
 const logger = require('../logger');
+const { MANDATORY_SEARCH_PARAM_EXTENSION_URL } = require('../constants');
+const e = require('express');
 
-const renderParameter = (searchParam, options = {}) => {
-  options.in = options.in || 'query';
+const renderParameter = (searchParam, resourceExtension = []) => {
+  const mandatorySearchParam = resourceExtension.find(
+    (ext) =>
+      ext.url === MANDATORY_SEARCH_PARAM_EXTENSION_URL &&
+      ext?.extension.find(
+        (e) => e.url === 'required' && e.valueString === searchParam.name
+      )
+  );
+
+  if (mandatorySearchParam) {
+    logger.debug(`Found mandatory search parameter ${searchParam.name}`);
+  }
 
   switch (searchParam.type) {
     case 'number':
       return {
         name: searchParam.name,
-        in: options.in,
+        in: 'query',
+        required: mandatorySearchParam ? true : false,
         schema: { type: 'integer' },
         example: 123456,
       };
     case 'date':
       return {
         name: searchParam.name,
-        in: options.in,
+        in: 'query',
+        style: 'form',
+        explode: true,
+        required: mandatorySearchParam ? true : false,
         schema: { type: 'string' },
         examples: {
           date: {
@@ -32,7 +48,8 @@ const renderParameter = (searchParam, options = {}) => {
       // Cases that all share the same schema type 'string'
       return {
         name: searchParam.name,
-        in: options.in,
+        required: mandatorySearchParam ? true : false,
+        in: 'query',
         schema: { type: 'string' },
       };
     default:
@@ -42,8 +59,9 @@ const renderParameter = (searchParam, options = {}) => {
       );
       return {
         name: searchParam.name,
-        in: options.in,
+        in: 'query',
         schema: { type: 'string' },
+        required: mandatorySearchParam ? true : false,
       };
   }
 };
