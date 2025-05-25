@@ -72,7 +72,10 @@ Usage: #definition
 * rest.resource[=].interaction[+].code = #update
 * rest.resource[=].interaction[+].code = #delete
 * rest.resource[=].versioning = #versioned
-* rest.resource[=].searchParam[0].name = "general-practitioner"
+* rest.resource[=].searchParam[+].name = "organization"
+* rest.resource[=].searchParam[=].definition = "http://hl7.org/fhir/SearchParameter/Patient-organization"
+* rest.resource[=].searchParam[=].type = #reference
+* rest.resource[=].searchParam[+].name = "general-practitioner"
 * rest.resource[=].searchParam[=].definition = "http://hl7.org/fhir/SearchParameter/Patient-general-practitioner"
 * rest.resource[=].searchParam[=].type = #reference
 * rest.resource[=].searchParam[=].documentation = "Patient's nominated general practitioner, not the organization that manages the record"

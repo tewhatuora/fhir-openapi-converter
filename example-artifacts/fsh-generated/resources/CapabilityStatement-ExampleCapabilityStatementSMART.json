@@ -181,6 +181,11 @@
           "versioning": "versioned",
           "searchParam": [
             {
+              "name": "organization",
+              "definition": "http://hl7.org/fhir/SearchParameter/Patient-organization",
+              "type": "reference"
+            },
+            {
               "name": "general-practitioner",
               "definition": "http://hl7.org/fhir/SearchParameter/Patient-general-practitioner",
               "type": "reference",
