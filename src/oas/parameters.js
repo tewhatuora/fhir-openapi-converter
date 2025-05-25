@@ -1,6 +1,5 @@
 const logger = require('../logger');
 const { MANDATORY_SEARCH_PARAM_EXTENSION_URL } = require('../constants');
-const e = require('express');
 
 const renderParameter = (searchParam, resourceExtension = []) => {
   const mandatorySearchParam = resourceExtension.find(
