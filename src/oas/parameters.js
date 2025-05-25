@@ -12,9 +12,7 @@ const renderParameter = (searchParam, resourceExtension = []) => {
   );
 
   if (mandatorySearchParam) {
-    logger.debug(
-      `Found mandatory search parameter ${searchParam.name}`
-    );
+    logger.debug(`Found mandatory search parameter ${searchParam.name}`);
   }
 
   switch (searchParam.type) {
