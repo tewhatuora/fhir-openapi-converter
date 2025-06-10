@@ -120,16 +120,17 @@ describe('FHIR StructureDefinition to OpenAPI features', () => {
         'Patient'
       );
       const schema = applyStructureDefinitionChanges(baseSchema, sd);
-      expect(schema.properties.maritalStatus.properties.coding.items.properties.system.enum).toEqual([
-        'http://terminology.hl7.org/CodeSystem/v3-MaritalStatus',
-      ]);
-      expect(schema.properties.maritalStatus.properties.coding.items.properties.code.enum).toEqual([
-        'U',
-      ]);
-      expect(schema.properties.maritalStatus.properties.coding.items.required).toEqual([
-        'system',
-        'code',
-      ]);
+      expect(
+        schema.properties.maritalStatus.properties.coding.items.properties
+          .system.enum
+      ).toEqual(['http://terminology.hl7.org/CodeSystem/v3-MaritalStatus']);
+      expect(
+        schema.properties.maritalStatus.properties.coding.items.properties.code
+          .enum
+      ).toEqual(['U']);
+      expect(
+        schema.properties.maritalStatus.properties.coding.items.required
+      ).toEqual(['system', 'code']);
     });
   });
 });
