@@ -121,16 +121,25 @@ const applyStructureDefinitionChanges = (schema, structureDefinition) => {
       currentSchema.properties[lastPart] = {
         type: 'object',
         properties: {
-          system: {
-            type: 'string',
-            enum: [element.patternCodeableConcept.coding[0].system],
-          },
-          code: {
-            type: 'string',
-            enum: [element.patternCodeableConcept.coding[0].code],
+          coding: {
+            type: 'array',
+            items: {
+              type: 'object',
+              properties: {
+                system: {
+                  type: 'string',
+                  enum: [element.patternCodeableConcept.coding[0].system],
+                },
+                code: {
+                  type: 'string',
+                  enum: [element.patternCodeableConcept.coding[0].code],
+                },
+              },
+              required: ['system', 'code'],
+            },
           },
         },
-        required: ['system', 'code'],
+        required: ['coding'],
       };
     }
     if (element.hasOwnProperty('patternBoolean')) {

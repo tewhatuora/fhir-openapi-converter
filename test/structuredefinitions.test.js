@@ -120,13 +120,13 @@ describe('FHIR StructureDefinition to OpenAPI features', () => {
         'Patient'
       );
       const schema = applyStructureDefinitionChanges(baseSchema, sd);
-      expect(schema.properties.maritalStatus.properties.system.enum).toEqual([
+      expect(schema.properties.maritalStatus.properties.coding.items.properties.system.enum).toEqual([
         'http://terminology.hl7.org/CodeSystem/v3-MaritalStatus',
       ]);
-      expect(schema.properties.maritalStatus.properties.code.enum).toEqual([
+      expect(schema.properties.maritalStatus.properties.coding.items.properties.code.enum).toEqual([
         'U',
       ]);
-      expect(schema.properties.maritalStatus.required).toEqual([
+      expect(schema.properties.maritalStatus.properties.coding.items.required).toEqual([
         'system',
         'code',
       ]);
