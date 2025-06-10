@@ -27,7 +27,7 @@ jobs:
         run: yarn build
 
       - name: Create and Upload Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v2.2.2
         with:
           files: dist/cli.js
           body: 'Release ${{ github.ref_name }}'
