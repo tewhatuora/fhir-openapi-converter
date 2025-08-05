@@ -1,0 +1,22 @@
+{
+  "resourceType": "StructureDefinition",
+  "id": "ExampleObservationProfile",
+  "url": "https://example.com/StructureDefinition/ExampleObservationProfile",
+  "name": "ExampleObservationProfile",
+  "status": "active",
+  "fhirVersion": "4.0.1",
+  "kind": "resource",
+  "abstract": false,
+  "type": "Observation",
+  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Observation",
+  "derivation": "constraint",
+  "differential": {
+    "element": [
+      {
+        "id": "Observation.effective[x]",
+        "path": "Observation.effective[x]",
+        "min": 1
+      }
+    ]
+  }
+}

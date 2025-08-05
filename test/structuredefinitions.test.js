@@ -26,6 +26,20 @@ describe('FHIR StructureDefinition to OpenAPI features', () => {
       expect(schema.required).toContain('gender');
     });
 
+    test('A StructureDefinition differential with effective[x] should not be marked as required in the OpenAPI schema', async () => {
+      const sd = getStuctureDefinition(
+        {
+          id: 'Observation.effective[x]',
+          path: 'Observation.effective[x]',
+          min: 1,
+        },
+        'Observation'
+      );
+
+      const schema = applyStructureDefinitionChanges(baseSchema, sd);
+      expect(schema.required).toEqual(['resourceType']);
+    });
+
     test('A StructureDefinition differential with min and max should reflected in the OpenAPI schema', async () => {
       const sd = getStuctureDefinition(
         {

@@ -72,6 +72,13 @@
       },
       {
         "reference": {
+          "reference": "StructureDefinition/ExampleObservationProfile"
+        },
+        "name": "ExampleObservationProfile",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
           "reference": "Patient/example-patient-instance"
         },
         "name": "ExamplePatientInstance",

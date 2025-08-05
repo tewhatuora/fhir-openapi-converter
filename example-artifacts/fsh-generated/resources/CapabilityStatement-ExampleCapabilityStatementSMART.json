@@ -229,6 +229,17 @@
               "code": "vread"
             }
           ]
+        },
+        {
+          "type": "Observation",
+          "supportedProfile": [
+            "https://example.com/StructureDefinition/ExampleObservationProfile"
+          ],
+          "interaction": [
+            {
+              "code": "read"
+            }
+          ]
         }
       ]
     }
