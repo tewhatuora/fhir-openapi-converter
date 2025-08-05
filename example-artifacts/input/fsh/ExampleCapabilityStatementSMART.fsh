@@ -97,3 +97,8 @@ Usage: #definition
 * rest.resource[=].supportedProfile[+] = Canonical(ExampleEncounterProfile)
 * rest.resource[=].interaction[+].code = #read
 * rest.resource[=].interaction[+].code = #vread
+
+// Observation resource
+* rest.resource[+].type = #Observation
+* rest.resource[=].supportedProfile[+] = Canonical(ExampleObservationProfile)
+* rest.resource[=].interaction[+].code = #read

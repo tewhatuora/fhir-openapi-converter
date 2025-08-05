@@ -13,7 +13,7 @@
     "fshType": "Instance",
     "fshFile": "ExampleCapabilityStatementSMART.fsh",
     "startLine": 1,
-    "endLine": 99
+    "endLine": 104
   },
   {
     "outputFile": "OperationDefinition-ExampleOperationModeOperationDefinition.json",
@@ -54,6 +54,14 @@
     "fshFile": "ExamplePatient.fsh",
     "startLine": 20,
     "endLine": 27
+  },
+  {
+    "outputFile": "StructureDefinition-ExampleObservationProfile.json",
+    "fshName": "ExampleObservationProfile",
+    "fshType": "Profile",
+    "fshFile": "ExampleObservation.fsh",
+    "startLine": 1,
+    "endLine": 4
   },
   {
     "outputFile": "StructureDefinition-example-encounter.json",

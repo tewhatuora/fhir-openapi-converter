@@ -3,6 +3,7 @@
 [ExamplePatientProfile2]: StructureDefinition-example-patient-2.html
 [ExampleCapabilityStatementOauth]: CapabilityStatement-ExampleCapabilityStatementOauth.html
 [ExampleCapabilityStatementSMART]: CapabilityStatement-ExampleCapabilityStatementSMART.html
+[ExampleObservationProfile]: StructureDefinition-ExampleObservationProfile.html
 [example-patient-instance]: Patient-example-patient-instance.html
 [ExampleOperationModeOperationDefinition]: OperationDefinition-ExampleOperationModeOperationDefinition.html
 [ExampleQueryOperationDefinition]: OperationDefinition-ExampleQueryOperationDefinition.html
