@@ -92,7 +92,10 @@ const applyStructureDefinitionChanges = (schema, structureDefinition) => {
     // if a minimum cardinality is set, add the property to the `required` array
     if (element.min && element.min > 0) {
       currentSchema.required = currentSchema.required || [];
-      if (!currentSchema.required.includes(lastPart) && !element.path.includes('[x]')) {
+      if (
+        !currentSchema.required.includes(lastPart) &&
+        !element.path.includes('[x]')
+      ) {
         currentSchema.required.push(lastPart);
       }
 
