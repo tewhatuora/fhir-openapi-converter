@@ -3,22 +3,30 @@ const { OAS_SCHEMA_BASE_URL } = require('../constants');
 const { getParametersResourceSchema } = require('./fhir');
 const { generateDefaultResponses } = require('./responses');
 
-const getOperationResponse = (outParam, operationName, config) => {
-  const content = Object.fromEntries(
-    config.contentType.map((type) => [
-      type,
-      {
-        schema: {
-          $ref: `${OAS_SCHEMA_BASE_URL}${outParam?.type}-definition.json`,
-        },
-      },
-    ])
-  );
+const getOperationResponse = (outParams, operationName, config) => {
+  // Preserve the converter's direct-resource response for a sole "return" output.
+  const directReturn = outParams.length === 1 && outParams[0].name === 'return';
+  const responseSchema = directReturn
+    ? {
+        $ref: `${OAS_SCHEMA_BASE_URL}${outParams[0].type}-definition.json`,
+      }
+    : getParametersResourceSchema();
+
+  const content = outParams.length
+    ? Object.fromEntries(
+        config.contentType.map((type) => [
+          type,
+          {
+            schema: responseSchema,
+          },
+        ])
+      )
+    : undefined;
 
   const successResponse = {
     200: {
-      description: outParam?.description || 'Successful response',
-      content,
+      description: outParams[0]?.description || 'Successful response',
+      ...(content ? { content } : {}),
     },
   };
 
@@ -58,7 +66,7 @@ const getParameters = (parameters) =>
 const getOperationConfig = (
   operationDefinition,
   resourceType,
-  outParam,
+  outParams,
   config
 ) => {
   const baseOperation = {
@@ -69,7 +77,11 @@ const getOperationConfig = (
       operationDefinition.description ||
       `Custom operation ${operationDefinition.code} ${resourceType}`,
     tags: [resourceType],
-    responses: getOperationResponse(outParam, operationDefinition.name, config),
+    responses: getOperationResponse(
+      outParams,
+      operationDefinition.name,
+      config
+    ),
     parameters: setGlobalHeaders(config),
     ...(config.securitySchemes?.smartOnFhir
       ? {
@@ -107,16 +119,16 @@ const getCustomOperation = (config, operation, resourceType) => {
       `Operation definition ${operation.definition} not found in the implementation guide`
     );
   }
-  const outParam = operationDefinition?.parameter.find(
-    (param) => param.use === 'out'
-  );
+  const outParams =
+    operationDefinition?.parameter?.filter((param) => param.use === 'out') ||
+    [];
 
   return {
     definition: operationDefinition,
     oas: getOperationConfig(
       operationDefinition,
       resourceType,
-      outParam,
+      outParams,
       config
     ),
   };

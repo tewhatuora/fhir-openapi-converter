@@ -1,5 +1,6 @@
 const OpenAPIParser = require('@readme/openapi-parser');
 const { main } = require('../src/main');
+const { getCustomOperation } = require('../src/oas/operations');
 const { getTestConfig } = require('./utils');
 const capabilitySeedData = require('../example-artifacts/fsh-generated/resources/CapabilityStatement-ExampleCapabilityStatementSMART.json');
 
@@ -54,5 +55,86 @@ describe('Custom operations', () => {
     );
     // confirm generated path
     expect(oas.paths['/Patient/$match']).toHaveProperty('post');
+  });
+
+  describe('responses', () => {
+    const operationUrl = 'https://example.com/OperationDefinition/test';
+    const getResponse = (outParams) => {
+      const operationDefinition = {
+        resourceType: 'OperationDefinition',
+        url: operationUrl,
+        name: 'TestOperation',
+        code: 'test',
+        kind: 'operation',
+        parameter: outParams,
+      };
+      const config = {
+        contentType: ['application/json', 'application/fhir+json'],
+        defaultResponses: '400',
+        igFiles: { [operationUrl]: operationDefinition },
+      };
+
+      return getCustomOperation(
+        config,
+        { name: 'test', definition: operationUrl },
+        'system'
+      ).oas.post.responses[200];
+    };
+
+    test('returns a single resource output named return directly', () => {
+      const response = getResponse([
+        {
+          name: 'return',
+          use: 'out',
+          type: 'OperationOutcome',
+          documentation: 'The operation result',
+        },
+      ]);
+
+      expect(response.description).toBe('Successful response');
+      expect(response.content['application/fhir+json'].schema).toEqual({
+        $ref: expect.stringMatching(/OperationOutcome-definition\.json$/),
+      });
+    });
+
+    test('wraps a named primitive output in a Parameters resource', () => {
+      const response = getResponse([
+        {
+          name: 'participationIndicator',
+          use: 'out',
+          type: 'boolean',
+        },
+      ]);
+
+      expect(response.content['application/fhir+json'].schema).toMatchObject({
+        type: 'object',
+        properties: {
+          resourceType: { enum: ['Parameters'] },
+        },
+      });
+      expect(JSON.stringify(response)).not.toContain('boolean-definition.json');
+    });
+
+    test('wraps multiple named outputs in a Parameters resource', () => {
+      const response = getResponse([
+        { name: 'patient', use: 'out', type: 'Reference' },
+        { name: 'participating', use: 'out', type: 'boolean' },
+      ]);
+
+      expect(response.content['application/json'].schema).toMatchObject({
+        properties: {
+          resourceType: { enum: ['Parameters'] },
+        },
+      });
+      expect(JSON.stringify(response)).not.toContain(
+        'Reference-definition.json'
+      );
+    });
+
+    test('omits response content when the operation has no outputs', () => {
+      expect(getResponse([])).toEqual({
+        description: 'Successful response',
+      });
+    });
   });
 });
