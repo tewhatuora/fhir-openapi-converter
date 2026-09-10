@@ -53,7 +53,7 @@ const getRequestBody = (config) => ({
 });
 
 const getParameters = (parameters) =>
-  parameters
+  (parameters || [])
     .filter((param) => param.use === 'in')
     .map((param) => ({
       name: param.name,
@@ -62,6 +62,42 @@ const getParameters = (parameters) =>
       required: param.min > 0,
       schema: { type: 'string' },
     }));
+
+const FHIR_PRIMITIVE_TYPES = new Set([
+  'base64Binary',
+  'boolean',
+  'canonical',
+  'code',
+  'date',
+  'dateTime',
+  'decimal',
+  'id',
+  'instant',
+  'integer',
+  'markdown',
+  'oid',
+  'positiveInt',
+  'string',
+  'time',
+  'unsignedInt',
+  'uri',
+  'url',
+  'uuid',
+]);
+
+const supportsGet = (operationDefinition) => {
+  if (operationDefinition.kind === 'query') return true;
+  if (
+    operationDefinition.kind !== 'operation' ||
+    operationDefinition.affectsState !== false
+  ) {
+    return false;
+  }
+
+  return (operationDefinition.parameter || [])
+    .filter((param) => param.use === 'in')
+    .every((param) => FHIR_PRIMITIVE_TYPES.has(param.type));
+};
 
 const getOperationConfig = (
   operationDefinition,
@@ -95,19 +131,19 @@ const getOperationConfig = (
       : {}),
   };
 
-  return operationDefinition.kind === 'operation'
+  return supportsGet(operationDefinition)
     ? {
-        post: {
-          ...baseOperation,
-          requestBody: getRequestBody(config),
-        },
-      }
-    : {
         get: {
           ...baseOperation,
           parameters: [...setGlobalHeaders(config)].concat(
             getParameters(operationDefinition.parameter)
           ),
+        },
+      }
+    : {
+        post: {
+          ...baseOperation,
+          requestBody: getRequestBody(config),
         },
       };
 };

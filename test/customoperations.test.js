@@ -57,6 +57,85 @@ describe('Custom operations', () => {
     expect(oas.paths['/Patient/$match']).toHaveProperty('post');
   });
 
+  describe('HTTP method', () => {
+    const operationUrl = 'https://example.com/OperationDefinition/test';
+    const getOperation = (overrides = {}) => {
+      const operationDefinition = {
+        resourceType: 'OperationDefinition',
+        url: operationUrl,
+        name: 'TestOperation',
+        code: 'test',
+        kind: 'operation',
+        ...overrides,
+      };
+      const config = {
+        contentType: ['application/fhir+json'],
+        defaultResponses: '400',
+        igFiles: { [operationUrl]: operationDefinition },
+      };
+
+      return getCustomOperation(
+        config,
+        { name: 'test', definition: operationUrl },
+        'Patient'
+      ).oas;
+    };
+
+    test('uses GET for a read-only operation with primitive input parameters', () => {
+      const operation = getOperation({
+        affectsState: false,
+        parameter: [
+          {
+            name: '_count',
+            use: 'in',
+            min: 0,
+            max: '1',
+            type: 'integer',
+            documentation: 'Maximum number of results.',
+          },
+          { name: 'return', use: 'out', min: 1, max: '1', type: 'Bundle' },
+        ],
+      });
+
+      expect(operation).toHaveProperty('get');
+      expect(operation).not.toHaveProperty('post');
+      expect(operation.get).not.toHaveProperty('requestBody');
+      expect(operation.get.parameters).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({
+            name: '_count',
+            in: 'query',
+            required: false,
+          }),
+        ])
+      );
+    });
+
+    test('uses POST when a read-only operation has a complex input parameter', () => {
+      const operation = getOperation({
+        affectsState: false,
+        parameter: [
+          { name: 'patient', use: 'in', min: 1, max: '1', type: 'Reference' },
+        ],
+      });
+
+      expect(operation).toHaveProperty('post');
+      expect(operation).not.toHaveProperty('get');
+    });
+
+    test('uses POST when affectsState is true', () => {
+      const operation = getOperation({
+        affectsState: true,
+        parameter: [
+          { name: 'value', use: 'in', min: 0, max: '1', type: 'string' },
+        ],
+      });
+
+      expect(operation).toHaveProperty('post');
+      expect(operation).not.toHaveProperty('get');
+    });
+  });
+
   describe('responses', () => {
     const operationUrl = 'https://example.com/OperationDefinition/test';
     const getResponse = (outParams) => {
