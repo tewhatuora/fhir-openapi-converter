@@ -1,0 +1,70 @@
+name: IG regression
+
+# Runs the converter from this checkout and from a published release against
+# the IGs in regression/igs.yaml, and reports any difference in the generated
+# OpenAPI. The job fails when anything differs; the report explains what.
+
+on:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      baseline:
+        description: 'Baseline: latest, newest (includes prereleases), a release tag, e.g. v1.2.4-6'
+        required: false
+        default: 'latest'
+      only:
+        description: 'Comma-separated IG ids to run (empty for all)'
+        required: false
+        default: ''
+
+permissions:
+  contents: read
+
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install converter dependencies
+        run: yarn install --immutable
+
+      - name: Install regression harness dependencies
+        working-directory: regression
+        run: yarn install --immutable
+
+      # Network inputs are fetched fresh on each run; the baseline and
+      # candidate within the run share them, so upstream changes between
+      # runs can't show up as differences.
+      - name: Compare against the release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BASELINE: ${{ inputs.baseline || 'latest' }}
+          ONLY: ${{ inputs.only }}
+        run: |
+          args=(--baseline "$BASELINE")
+          if [ -n "$ONLY" ]; then args+=(--only "$ONLY"); fi
+          node regression/run.mjs "${args[@]}" > /dev/null
+
+      - name: Add report to job summary
+        if: always()
+        run: |
+          if [ -f regression/out/report.md ]; then
+            # Job summaries are limited to 1 MiB.
+            head -c 900000 regression/out/report.md >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: regression-report
+          path: |
+            regression/out/report.md
+            regression/out/report.json
+            regression/out/runs/
+          if-no-files-found: warn
