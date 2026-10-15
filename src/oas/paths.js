@@ -23,7 +23,7 @@ const buildReadPath = async (
 ) => {
   logger.debug(`Building read path for ${serverResource.type}`);
   return {
-    [`/${serverResource.type}/{rid}`]: {
+    [`/${serverResource.type}/{rid}/a`]: {
       get: {
         summary: `Read ${serverResource.type}`,
         description: documentation || `Read ${serverResource.type}`,
