@@ -27,6 +27,10 @@ igs:
     description: HNZ Screening IG (README example)
     packageUrl: https://fhir-ig.digital.health.nz/sdhr/package.tgz
 
+  - id: bsa
+    description: HNZ BSA
+    packageUrl: https://fhir-ig.digital.health.nz/bsa/package.tgz
+
   # Template for a new entry:
   # - id: my-ig
   #   packageUrl: https://example.org/fhir/my-ig/package.tgz
