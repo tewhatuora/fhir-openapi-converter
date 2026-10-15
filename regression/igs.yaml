@@ -23,11 +23,9 @@ igs:
     description: HNZ Screening IG (README example)
     packageUrl: https://fhir-ig.digital.health.nz/screening/package.tgz
 
-  - id: example-artifacts
-    description: Development IG in this repository
-    inputFolder: example-artifacts
-    options:
-      defaultOAuthScope: scope/example
+  - id: sdhr
+    description: HNZ Screening IG (README example)
+    packageUrl: https://fhir-ig.digital.health.nz/sdhr/package.tgz
 
   # Template for a new entry:
   # - id: my-ig
