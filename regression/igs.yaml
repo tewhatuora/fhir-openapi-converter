@@ -1,0 +1,41 @@
+# Implementation Guides the regression harness runs both converter builds against.
+#
+# Each entry needs a unique `id` and exactly one source:
+#   packageUrl:   URL of the IG package.tgz (passed as --remoteUrl)
+#   inputFolder:  local folder, relative to the repository root (passed as --inputFolder)
+#
+# Optional:
+#   dependencyUrls: package URLs passed as --remoteDependencyUrl (packageUrl only)
+#   options:        other converter CLI options, e.g. defaultOAuthScope, contentType,
+#                   defaultResponses, dereferenceOutput. A list repeats the flag.
+#   skip:           true to leave the entry out of runs
+#   description:    free text shown in the report
+#
+# The harness owns --inputFolder, --remoteUrl, --remoteDependencyUrl and
+# --outputFolder; don't set them under `options`.
+
+igs:
+  - id: shared-care
+    description: HNZ Shared Care IG (README example)
+    packageUrl: https://fhir-ig.digital.health.nz/shared-care/package.tgz
+
+  - id: screening
+    description: HNZ Screening IG (README example)
+    packageUrl: https://fhir-ig.digital.health.nz/screening/package.tgz
+
+  - id: sdhr
+    description: HNZ Screening IG (README example)
+    packageUrl: https://fhir-ig.digital.health.nz/sdhr/package.tgz
+
+  - id: bsa
+    description: HNZ BSA
+    packageUrl: https://fhir-ig.digital.health.nz/bsa/package.tgz
+
+  # Template for a new entry:
+  # - id: my-ig
+  #   packageUrl: https://example.org/fhir/my-ig/package.tgz
+  #   dependencyUrls:
+  #     - https://fhir.org.nz/ig/base/package.tgz
+  #   options:
+  #     defaultOAuthScope: scope/my-ig
+  #     contentType: [application/json, application/fhir+json]

@@ -1,0 +1,17 @@
+{
+  "name": "fhir-openapi-converter-regression",
+  "private": true,
+  "description": "Compares converter output between the latest release and the current checkout across real IGs",
+  "license": "CC BY-NC-ND 4.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "compare": "node run.mjs",
+    "test": "node --test test/*.test.mjs"
+  },
+  "dependencies": {
+    "yaml": "^2.5.0"
+  },
+  "packageManager": "yarn@4.2.2"
+}
