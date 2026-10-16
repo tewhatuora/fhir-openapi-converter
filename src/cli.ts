@@ -1,9 +1,7 @@
-#!/usr/bin/env node
-const { main } = require('./main');
-const { getArgs } = require('./args');
+import { main } from './main';
+import { getArgs } from './args';
 
 const cli = async () => {
-  // Get configuration from command line arguments
   const config = getArgs();
   try {
     await main(config);

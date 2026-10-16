@@ -1,7 +1,11 @@
-const { buildPaths } = require('../src/oas/paths');
+const { buildPaths: buildContextPaths } = require('../src/oas/paths');
+const { createContext } = require('../src/oas/context');
+const { IgIndex } = require('../src/ig/IgIndex');
 const { getMinimalCapabilityStatement } = require('./utils');
 const { getTestConfig } = require('./utils');
 const config = getTestConfig();
+const buildPaths = (config, capabilityStatement) =>
+  buildContextPaths(createContext(config, new IgIndex(), capabilityStatement));
 
 describe('CapabilityStatement rest interactions to OpenAPI paths', () => {
   test('read interaction on a resource should create a GET /{resourceType}/{rid} path', async () => {

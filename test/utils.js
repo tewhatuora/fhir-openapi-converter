@@ -8,7 +8,7 @@ const runCliTool = (opts) => {
   const args = Object.entries(opts)
     .map(([key, value]) => `--${key} "${value}"`)
     .join(' ');
-  const command = `./src/cli.js ${args}`;
+  const command = `npx tsx ./src/cli.ts ${args}`;
   const result = execSync(command, { encoding: 'utf-8' });
   return result;
 };
