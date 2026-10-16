@@ -1,9 +1,9 @@
-const { getFHIRArtifacts } = require('../src/utils');
+const { getFHIRArtifacts } = require('../src/ig/loadPackage');
 const { main } = require('../src/main');
 const { getTestConfig } = require('./utils');
 const { CAPABILITY_STATEMENT_URL } = require('../src/constants');
 
-jest.mock('../src/utils', () => ({
+jest.mock('../src/ig/loadPackage', () => ({
   getFHIRArtifacts: jest.fn(),
 }));
 

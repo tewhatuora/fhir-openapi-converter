@@ -1,6 +1,6 @@
-const winston = require('winston');
+import winston from 'winston';
+import { setLog } from './log';
 
-// Create a logger instance
 const logger = winston.createLogger({
   level: process.env.LOG_LEVEL || 'info',
   format: winston.format.combine(
@@ -21,4 +21,7 @@ const logger = winston.createLogger({
   ],
 });
 
-module.exports = logger;
+// Route the generator's logging through winston.
+setLog(logger);
+
+export default logger;

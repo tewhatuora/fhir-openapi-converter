@@ -51,12 +51,14 @@ Review the [HNZ Digital Tooling IG](https://fhir-ig.digital.health.nz/hnz-digita
 ### Usage Examples
 
 ```bash
-./src/cli.js --remoteUrl https://fhir-ig.digital.health.nz/shared-care/package.tgz
-./src/cli.js --remoteUrl https://fhir-ig.digital.health.nz/screening/package.tgz
-./src/cli.js --inputFolder ./example-artifacts --defaultOAuthScope scope/example
+node dist/cli.js --remoteUrl https://fhir-ig.digital.health.nz/shared-care/package.tgz
+node dist/cli.js --remoteUrl https://fhir-ig.digital.health.nz/screening/package.tgz
+node dist/cli.js --inputFolder ./example-artifacts --defaultOAuthScope scope/example
 ```
 
-The `LOG_LEVEL` environment variable can be used to set a log level for output written to the console. e.g. `LOG_LEVEL=debug ./src/cli.js --inputFolder ./example-artifacts`. The default settings is `info`.
+`dist/cli.js` is the release artifact, or run `yarn build` to create it. From a development checkout the TypeScript source can be run directly with `npx tsx src/cli.ts <options>`.
+
+The `LOG_LEVEL` environment variable can be used to set a log level for output written to the console. e.g. `LOG_LEVEL=debug node dist/cli.js --inputFolder ./example-artifacts`. The default settings is `info`.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -82,9 +84,24 @@ The `inputFolder` option is mutually exclusive with the `remoteUrl` option. Only
 
 The `example-artifacts` directory contains an example, minimal Implementation Guide using FSH (FHIR Shorthand) files which contains an example CapabilityStatement used for development. When developing new features for this tool, updates should be made to this IG to test the feature.
 
-To compile the FSH files in the `example-artifacts/input` folder, run `sushi example-artifacts`. This will update the output files in the `example-artifacts/fsh-generated` folder. To run the tool using these artifacts, run `./src/cli.js --inputFolder ./example-artifacts`
+To compile the FSH files in the `example-artifacts/input` folder, run `sushi example-artifacts`. This will update the output files in the `example-artifacts/fsh-generated` folder. To run the tool using these artifacts, run `yarn dev` (which runs `tsx src/cli.ts --inputFolder ./example-artifacts --defaultOAuthScope scope/example`).
 
-Once compiled, `yarn dev` can be used to run the tool in development.
+The source is TypeScript (`src/`). Useful scripts:
+
+- `yarn typecheck` - type-check the source with `tsc`
+- `yarn test` - run the Jest tests (the source is compiled on the fly by `ts-jest`)
+- `yarn lint` - ESLint and Prettier checks
+- `yarn build` - bundle the CLI into `dist/cli.js` with webpack
+
+How the source is organised:
+
+- `src/cli.ts`, `src/args.ts`, `src/main.ts` - the command line entry point. It loads the IG, generates a spec per CapabilityStatement, then writes and validates it.
+- `src/ig/` - loading IG packages from a folder or URL (`loadPackage.ts`) and indexing their resources (`IgIndex.ts`).
+- `src/openApiGenerator.ts` - assembles the OpenAPI document for one CapabilityStatement.
+- `src/oas/` - the generator core. `context.ts` holds per-CapabilityStatement settings; `paths.ts` maps interactions and operations to paths (see the `INTERACTIONS` table); `security.ts`, `profiles.ts`, `examples.ts`, `responses.ts`, `operations.ts` and `parameters.ts` handle their part of the spec.
+- `src/output/` - writing the JSON and YAML files.
+
+The generator core (`src/openApiGenerator.ts` and `src/oas/`) has no Node-specific dependencies: logging goes through `src/log.ts` and base schemas are fetched with `fetch`.
 
 To render the generated output in a Swagger UI, you can run `yarn view`. This will reload on changes to the output files.
 
