@@ -1,4 +1,11 @@
-const getBundleRequestSchema = (interactions) => {
+import type { OpenAPIV3 } from 'openapi-types';
+import type { RestInteraction } from '../types';
+
+type SystemInteraction = Pick<RestInteraction, 'code'>;
+
+export const bundleRequestSchema = (
+  interactions: SystemInteraction[]
+): OpenAPIV3.SchemaObject => {
   return {
     type: 'object',
     properties: {
@@ -45,7 +52,11 @@ const getBundleRequestSchema = (interactions) => {
   };
 };
 
-const getBundleResponseSchema = (interactions, profileRefs, forceType) => {
+export const bundleResponseSchema = (
+  interactions: SystemInteraction[],
+  profileRefs?: OpenAPIV3.ReferenceObject[],
+  forceType?: string[]
+): OpenAPIV3.SchemaObject => {
   return {
     type: 'object',
     properties: {
@@ -92,8 +103,32 @@ const getBundleResponseSchema = (interactions, profileRefs, forceType) => {
     },
   };
 };
-
-module.exports = {
-  getBundleRequestSchema,
-  getBundleResponseSchema,
+/** Schema for a FHIR `Parameters` resource, used by custom operations. */
+export const parametersResourceSchema = (): OpenAPIV3.SchemaObject => {
+  return {
+    type: 'object',
+    properties: {
+      resourceType: {
+        type: 'string',
+        enum: ['Parameters'],
+      },
+      parameter: {
+        type: 'array',
+        items: {
+          type: 'object',
+          properties: {
+            name: {
+              type: 'string',
+            },
+            valueString: {
+              type: 'string',
+            },
+          },
+          additionalProperties: true,
+          required: ['name'],
+        },
+      },
+    },
+    required: ['resourceType', 'parameter'],
+  };
 };

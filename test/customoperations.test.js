@@ -1,6 +1,8 @@
 const OpenAPIParser = require('@readme/openapi-parser');
 const { main } = require('../src/main');
-const { getCustomOperation } = require('../src/oas/operations');
+const { buildCustomOperation } = require('../src/oas/operations');
+const { createContext } = require('../src/oas/context');
+const { IgIndex } = require('../src/ig/IgIndex');
 const { getTestConfig } = require('./utils');
 const capabilitySeedData = require('../example-artifacts/fsh-generated/resources/CapabilityStatement-ExampleCapabilityStatementSMART.json');
 
@@ -68,17 +70,17 @@ describe('Custom operations', () => {
         kind: 'operation',
         ...overrides,
       };
-      const config = {
-        contentType: ['application/fhir+json'],
-        defaultResponses: '400',
-        igFiles: { [operationUrl]: operationDefinition },
-      };
+      const ctx = createContext(
+        { contentType: ['application/fhir+json'], defaultResponses: '400' },
+        IgIndex.fromResources([operationDefinition]),
+        {}
+      );
 
-      return getCustomOperation(
-        config,
+      return buildCustomOperation(
+        ctx,
         { name: 'test', definition: operationUrl },
         'Patient'
-      ).oas;
+      ).operations;
     };
 
     test('uses GET for a read-only operation with primitive input parameters', () => {
@@ -147,17 +149,20 @@ describe('Custom operations', () => {
         kind: 'operation',
         parameter: outParams,
       };
-      const config = {
-        contentType: ['application/json', 'application/fhir+json'],
-        defaultResponses: '400',
-        igFiles: { [operationUrl]: operationDefinition },
-      };
+      const ctx = createContext(
+        {
+          contentType: ['application/json', 'application/fhir+json'],
+          defaultResponses: '400',
+        },
+        IgIndex.fromResources([operationDefinition]),
+        {}
+      );
 
-      return getCustomOperation(
-        config,
+      return buildCustomOperation(
+        ctx,
         { name: 'test', definition: operationUrl },
         'system'
-      ).oas.post.responses[200];
+      ).operations.post.responses[200];
     };
 
     test('returns a single resource output named return directly', () => {

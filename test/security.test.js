@@ -1,5 +1,5 @@
 const OpenAPIParser = require('@readme/openapi-parser');
-const utils = require('../src/utils');
+const utils = require('../src/ig/loadPackage');
 const {
   getTestConfig,
   getSmartSystemSecurity,

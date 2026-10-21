@@ -1,8 +1,9 @@
-const yargs = require('yargs/yargs');
-const { hideBin } = require('yargs/helpers');
+import yargs from 'yargs/yargs';
+import { hideBin } from 'yargs/helpers';
+import type { CliOptions } from './types';
 
-const getArgs = () => {
-  return yargs(hideBin(process.argv))
+export const getArgs = (): CliOptions => {
+  const argv = yargs(hideBin(process.argv))
     .option('inputFolder', {
       alias: 'i',
       type: 'string',
@@ -85,7 +86,9 @@ const getArgs = () => {
 
       return true;
     })
-    .version(false).argv;
-};
+    .version(false)
+    .parseSync();
 
-module.exports = { getArgs };
+  // yargs types array options as (string | number)[]; values arrive as given.
+  return argv as unknown as CliOptions;
+};

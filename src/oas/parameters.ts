@@ -1,25 +1,32 @@
-const logger = require('../logger');
-const { MANDATORY_SEARCH_PARAM_EXTENSION_URL } = require('../constants');
+import type { OpenAPIV3 } from 'openapi-types';
+import { log } from '../log';
+import { MANDATORY_SEARCH_PARAM_EXTENSION_URL } from '../constants';
+import type { Extension, GlobalHeader, SearchParam } from '../types';
 
-const renderParameter = (searchParam, resourceExtension = []) => {
+/** Converts a CapabilityStatement search parameter to a query parameter. */
+export const renderParameter = (
+  searchParam: SearchParam,
+  resourceExtension: Extension[] = []
+): OpenAPIV3.ParameterObject => {
   const mandatorySearchParam = resourceExtension.find(
     (ext) =>
       ext.url === MANDATORY_SEARCH_PARAM_EXTENSION_URL &&
-      ext?.extension.find(
+      ext?.extension!.find(
         (e) => e.url === 'required' && e.valueString === searchParam.name
       )
   );
 
   if (mandatorySearchParam) {
-    logger.debug(`Found mandatory search parameter ${searchParam.name}`);
+    log.debug(`Found mandatory search parameter ${searchParam.name}`);
   }
+  const required = mandatorySearchParam ? true : false;
 
   switch (searchParam.type) {
     case 'number':
       return {
         name: searchParam.name,
         in: 'query',
-        required: mandatorySearchParam ? true : false,
+        required,
         schema: { type: 'integer' },
         example: 123456,
       };
@@ -29,7 +36,7 @@ const renderParameter = (searchParam, resourceExtension = []) => {
         in: 'query',
         style: 'form',
         explode: true,
-        required: mandatorySearchParam ? true : false,
+        required,
         schema: { type: 'string' },
         examples: {
           date: {
@@ -44,28 +51,29 @@ const renderParameter = (searchParam, resourceExtension = []) => {
     case 'uri':
     case 'string':
     case 'special':
-      // Cases that all share the same schema type 'string'
       return {
         name: searchParam.name,
-        required: mandatorySearchParam ? true : false,
+        required,
         in: 'query',
         schema: { type: 'string' },
       };
     default:
-      // Handling unsupported parameter types
-      logger.debug(
+      log.debug(
         `Unsupported parameter found ${searchParam.name}: ${searchParam.type}`
       );
       return {
         name: searchParam.name,
         in: 'query',
         schema: { type: 'string' },
-        required: mandatorySearchParam ? true : false,
+        required,
       };
   }
 };
 
-const getPathParameter = (name, description) => {
+export const getPathParameter = (
+  name: string,
+  description: string
+): OpenAPIV3.ParameterObject => {
   return {
     description,
     name,
@@ -75,42 +83,36 @@ const getPathParameter = (name, description) => {
   };
 };
 
-const setGlobalHeaders = (config) => {
-  if (!config.globalHeaders || config.globalHeaders.length === 0) {
-    return [];
-  }
+/** Header parameters for the CapabilityStatement's global headers. */
+export const headerParameters = (
+  globalHeaders: Record<string, GlobalHeader>[] | undefined
+): OpenAPIV3.ParameterObject[] =>
+  (globalHeaders ?? []).flatMap((header) => {
+    // This ensures that there is actually a key-value pair in the header object.
+    if (Object.keys(header).length === 0) {
+      return [];
+    }
 
-  return config.globalHeaders
-    .map((header) => {
-      // This ensures that there is actually a key-value pair in the header object.
-      if (Object.keys(header).length === 0) {
-        return null;
-      }
+    const [name, details] = Object.entries(header)[0];
+    if (!name || !details) {
+      log.error('Invalid header configuration:', header);
+      return [];
+    }
 
-      const [name, details] = Object.entries(header)[0];
-      if (!name || !details) {
-        debug.error('Invalid header configuration:', header);
-        return null;
-      }
-
-      return {
+    return [
+      {
         name: name,
         in: 'header',
         required: details.required,
         ...(details.documentation
           ? { description: details.documentation }
           : {}),
+        // In OpenAPI 3.0, siblings of `$ref` are ignored, so `type` has no
+        // effect here (KNOWN_ISSUES.md #4).
         schema: {
           type: 'string',
           $ref: details.value,
-        },
-      };
-    })
-    .filter((item) => item !== null);
-};
-
-module.exports = {
-  getPathParameter,
-  renderParameter,
-  setGlobalHeaders,
-};
+        } as OpenAPIV3.SchemaObject,
+      },
+    ];
+  });

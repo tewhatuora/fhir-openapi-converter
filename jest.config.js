@@ -19,5 +19,11 @@ if (shouldReport) {
 
 const config = {
   reporters: reporters,
+  testPathIgnorePatterns: ['/node_modules/'],
+  transform: {
+    '^.+\\.ts$': 'ts-jest',
+    // JavaScript tests use babel-jest, which hoists jest.mock calls.
+    '^.+\\.js$': 'babel-jest',
+  },
 };
 module.exports = config;
