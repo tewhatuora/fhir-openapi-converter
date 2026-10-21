@@ -21,7 +21,6 @@ export const renderParameter = (
   }
   const required = mandatorySearchParam ? true : false;
 
-  // Property order differs between cases and is kept for stable output.
   switch (searchParam.type) {
     case 'number':
       return {
@@ -108,8 +107,8 @@ export const headerParameters = (
         ...(details.documentation
           ? { description: details.documentation }
           : {}),
-        // `type` alongside `$ref` is not valid OpenAPI but is kept for
-        // compatibility with existing output.
+        // In OpenAPI 3.0, siblings of `$ref` are ignored, so `type` has no
+        // effect here (KNOWN_ISSUES.md #4).
         schema: {
           type: 'string',
           $ref: details.value,

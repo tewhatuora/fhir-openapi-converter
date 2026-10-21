@@ -9,7 +9,7 @@ module.exports = {
     filename: 'cli.js',
   },
   resolve: {
-    // '.ts' is last so dependencies resolve exactly as they did before.
+    // '.ts' is last so packages that ship both .js and .ts files resolve to .js.
     extensions: ['.js', '.json', '.wasm', '.ts'],
   },
   module: {

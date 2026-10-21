@@ -11,11 +11,12 @@ import type {
 } from '../types';
 
 /**
- * NOTE: FHIR names this field `documentation`; the converter has always read
- * `description`, so parameter and response descriptions fall back to the
- * defaults. Kept for output compatibility.
+ * Parameter descriptions are read from `description`, which FHIR does not
+ * define (it uses `documentation`), so they are never set (KNOWN_ISSUES.md #2).
  */
-type LegacyParameter = OperationDefinitionParameter & { description?: string };
+type ParameterWithDescription = OperationDefinitionParameter & {
+  description?: string;
+};
 
 type Ctx = Pick<
   GenerationContext,
@@ -75,9 +76,9 @@ const operationResponses = (
   ctx: Ctx,
   definition: OperationDefinition
 ): OpenAPIV3.ResponsesObject => {
-  const outputs: LegacyParameter[] = (definition.parameter || []).filter(
-    (param) => param.use === 'out'
-  );
+  const outputs: ParameterWithDescription[] = (
+    definition.parameter || []
+  ).filter((param) => param.use === 'out');
   const directReturn = outputs.length === 1 && outputs[0].name === 'return';
   const schema = directReturn
     ? { $ref: `${OAS_SCHEMA_BASE_URL}${outputs[0].type}-definition.json` }
@@ -95,7 +96,7 @@ const operationResponses = (
 const queryParameters = (
   definition: OperationDefinition
 ): OpenAPIV3.ParameterObject[] =>
-  inputParameters(definition).map((param: LegacyParameter) => ({
+  inputParameters(definition).map((param: ParameterWithDescription) => ({
     name: param.name,
     ...(param.description ? { description: param.description } : {}),
     in: 'query',

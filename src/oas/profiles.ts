@@ -144,7 +144,7 @@ const applyCardinality = (
   }
 
   if (element.max && !['*', '0'].includes(element.max)) {
-    // Throws if the property is not in the base schema, as it always has.
+    // Throws if the property is not in the base schema (KNOWN_ISSUES.md #13).
     const schema = parent.properties![name] as Schema;
     if (schema.type === 'array') {
       schema.maxItems = Number(element.max);

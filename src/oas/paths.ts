@@ -312,8 +312,9 @@ const buildResourcePaths = async (
   };
   const paths: Paths = {};
 
-  // Interactions with a request body (create/update/patch) go after the
-  // others, matching the operation order the converter has always produced.
+  // Interactions with a request body (create/update/patch) are added after
+  // the others. This sets the order of paths and methods in the output, and
+  // so the order of the top-level `tags` and the `POST /` security list.
   const supported = interaction!.filter(({ code }) => {
     if (Object.hasOwn(INTERACTIONS, code)) return true;
     log.debug(`Unsupported interaction found for ${type}: ${code}`);
@@ -339,9 +340,9 @@ const buildResourcePaths = async (
   const customPaths: Paths = {};
   for (const op of operation ?? []) {
     const { definition, operations } = buildCustomOperation(ctx, op, type);
-    // NOTE: if a definition is both instance- and type-level, the two paths
-    // share the same operation objects, so the type path also gets the `rid`
-    // parameter and the `-type` operationId. Kept for output compatibility.
+    // If a definition is both instance- and type-level, the two paths share
+    // the same operation objects: the type path also gets the `rid` parameter
+    // and both get the `-type` operationId (KNOWN_ISSUES.md #3).
     if (definition.instance) {
       Object.values(operations).forEach((method) => {
         method.parameters?.push(getPathParameter('rid', 'Resource id'));

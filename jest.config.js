@@ -22,7 +22,7 @@ const config = {
   testPathIgnorePatterns: ['/node_modules/'],
   transform: {
     '^.+\\.ts$': 'ts-jest',
-    // Tests stay in JavaScript; babel-jest is kept so jest.mock is hoisted.
+    // JavaScript tests use babel-jest, which hoists jest.mock calls.
     '^.+\\.js$': 'babel-jest',
   },
 };

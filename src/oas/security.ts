@@ -60,7 +60,10 @@ export const createSecurityModel = (
   return model;
 };
 
-/** Maps SMART `capabilities` codes to scope bases (unknown codes -> undefined). */
+/**
+ * Maps SMART `capabilities` codes to scope bases. Unknown codes map to
+ * `undefined` (KNOWN_ISSUES.md #5).
+ */
 const smartScopeBases = (security: RestSecurity): SmartScopeBase[] => {
   const capabilities = security.extension?.filter(
     (ext) => ext.url === SMART_CAPABILITIES_EXTENSION_URL

@@ -95,7 +95,7 @@ export const interactionRequestBody = (
     : undefined;
 
   return {
-    // "to create" is used for every interaction, as before.
+    // Also used for update and patch (KNOWN_ISSUES.md #8).
     description: `${resource.type} to create`,
     required: true,
     content: ctx.content(() => ({
